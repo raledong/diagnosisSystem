@@ -5,6 +5,8 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user")
 public class User {
+    public static final int USER = 0;
+    public static final int DOCTOR = 1;
 
     //用户id
     @Id
@@ -35,6 +37,8 @@ public class User {
     @Column(name = "type")
     private int type;
 
+    @Column(name = "account")
+    private String account;
     //密码
     @Column(name = "passwd")
     private String passwd;
@@ -104,4 +108,11 @@ public class User {
         this.passwd = passwd;
     }
 
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
 }
