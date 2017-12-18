@@ -1,5 +1,7 @@
 package cn.nju.model;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -8,7 +10,6 @@ import java.util.Date;
 public class Photo {
     //照片id
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "pid")
     private String pid;
 
@@ -34,6 +35,8 @@ public class Photo {
 
     //上传时间
     @Column(name = "update_date")
+    @Temporal(TemporalType.TIMESTAMP)
+    @CreatedDate
     private Date updateDate;
 
     //拍摄时间 0-早 1-中 2-晚

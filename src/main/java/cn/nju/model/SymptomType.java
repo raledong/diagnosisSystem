@@ -11,7 +11,6 @@ public class SymptomType {
 
     //分类的id
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "tid")
     private String tid;
 

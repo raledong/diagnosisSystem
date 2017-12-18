@@ -19,6 +19,6 @@ public class SymptomTypeServiceTest {
 
     @Test
     public void testSomeMethod() {
-        System.out.println(symptomTypeService.findAll());
+        System.out.println(symptomTypeService.findAll().get(0).getSubSymptomTypes().size());
     }
 }

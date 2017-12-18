@@ -20,4 +20,10 @@ public interface SymptomTypeRepository extends CrudRepository<SymptomType, Strin
      * @return
      */
     List<SymptomType> findByUperIdIsNull();
+
+    /**
+     * 根据标签的名称查找标签 要求标签名称唯一
+     * @return
+     */
+    SymptomType findDistinctByTname(String tname);
 }

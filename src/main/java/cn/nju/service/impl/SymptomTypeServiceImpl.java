@@ -1,5 +1,6 @@
 package cn.nju.service.impl;
 
+import cn.nju.common.UUIDGenerator;
 import cn.nju.dao.SymptomTypeRepository;
 import cn.nju.model.SymptomType;
 import cn.nju.service.SymptomTypeService;
@@ -47,31 +48,65 @@ public class SymptomTypeServiceImpl implements SymptomTypeService {
 
     @Override
     public boolean addSymptomType(SymptomTypeVO symptomTypeVO) {
+        if (symptomTypeVO != null){
+            SymptomType symptomType = new SymptomType(symptomTypeVO);
+            symptomType.setTid(UUIDGenerator.getShortUUID());
+            symptomType.setUperId(null);
+            symptomTypeRepository.save(symptomType);
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean addSubSymptomType(SubSymptomTypeVO subSymptomTypeVO) {
+        if (subSymptomTypeVO != null){
+            subSymptomTypeVO.setTid(UUIDGenerator.getShortUUID());
+            SymptomType symptomType = new SymptomType(subSymptomTypeVO);
+            symptomTypeRepository.save(symptomType);
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean deleteSymptomType(String sid) {
-        return false;
+        List<SymptomType> subSymptomTypes = symptomTypeRepository.findByUperId(sid);
+
+        //删除所有的子分类
+        if (subSymptomTypes!=null && !subSymptomTypes.isEmpty()){
+            for (SymptomType subSymptomType : subSymptomTypes){
+                deleteSubSymptomType(subSymptomType.getTid());
+            }
+        }
+        symptomTypeRepository.delete(sid);
+        return true;
     }
 
     @Override
     public boolean deleteSubSymptomType(String sid) {
-        return false;
+        symptomTypeRepository.delete(sid);
+        return true;
     }
 
     @Override
     public boolean updateSymptomType(SymptomTypeVO symptomTypeVO) {
+        if (symptomTypeVO!=null){
+            SymptomType symptomType = new SymptomType(symptomTypeVO);
+            symptomTypeRepository.save(symptomType);
+            return true;
+        }
         return false;
     }
 
     @Override
     public boolean updateSubSymptomType(SubSymptomTypeVO subSymptomTypeVO) {
+        if (subSymptomTypeVO!=null){
+            SymptomType symptomType = new SymptomType(subSymptomTypeVO);
+            symptomTypeRepository.save(symptomType);
+            return true;
+        }
         return false;
     }
+
 }
