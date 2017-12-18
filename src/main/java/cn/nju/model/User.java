@@ -1,43 +1,107 @@
 package cn.nju.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity
+@Table(name = "user")
 public class User {
+
+    //用户id
     @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
+    @Column(name = "uid")
+    private String uid;
 
-    private String name;
+    //用户姓名
+    @Column(name = "uname")
+    private String uname;
 
-    private String email;
+    //用户性别，0代表男，1代表女
+    @Column(name = "gender")
+    private int gender;
 
-    public Integer getId() {
-        return id;
+    //用户年龄
+    @Column(name = "age")
+    private int age;
+
+    //病史
+    @Column(name = "medical_history")
+    private String medicalHistory;
+
+    //最近症状
+    @Column(name = "symptom")
+    private String symptom;
+
+    //用户类型 0代表用户 1代表医生
+    @Column(name = "type")
+    private int type;
+
+    //密码
+    @Column(name = "passwd")
+    private String passwd;
+
+
+    public String getUid() {
+        return uid;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
-    public String getName() {
-        return name;
+    public String getUname() {
+        return uname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setUname(String uname) {
+        this.uname = uname;
     }
 
-    public String getEmail() {
-        return email;
+    public int getGender() {
+        return gender;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setGender(int gender) {
+        this.gender = gender;
     }
 
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getMedicalHistory() {
+        return medicalHistory;
+    }
+
+    public void setMedicalHistory(String medicalHistory) {
+        this.medicalHistory = medicalHistory;
+    }
+
+    public String getSymptom() {
+        return symptom;
+    }
+
+    public void setSymptom(String symptom) {
+        this.symptom = symptom;
+    }
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    public String getPasswd() {
+        return passwd;
+    }
+
+    public void setPasswd(String passwd) {
+        this.passwd = passwd;
+    }
 
 }
