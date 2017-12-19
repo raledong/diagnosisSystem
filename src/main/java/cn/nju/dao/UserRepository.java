@@ -11,6 +11,6 @@ public interface UserRepository extends CrudRepository<User, String> {
 
     User findDistinctByUnameAndPasswdAndType(String uname, String passwd, int type);
 
-
+    User findDistinctByUnameAndType(String uname, int type);
 
 }
