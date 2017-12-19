@@ -3,6 +3,7 @@ package cn.nju.controller;
 import cn.nju.common.enumeration.RequestStatus;
 import cn.nju.model.SymptomType;
 import cn.nju.service.SymptomTypeService;
+import cn.nju.vo.SubSymptomTypeVO;
 import cn.nju.vo.SymptomTypeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -27,6 +28,35 @@ public class SymptomController {
     }
 
     /**
+     * 获得标记为sid的父标签
+     * @param sid
+     * @return
+     */
+    @GetMapping(value = "/{id}")
+    public @ResponseBody SymptomTypeVO findSymptomById(@PathVariable("id") String sid){
+        return symptomTypeService.findSymptomById(sid);
+    }
+
+    @PostMapping()
+    public @ResponseBody
+    RequestStatus createNewSymptom(String tname){
+        if (tname==null || tname.isEmpty()) return RequestStatus.FAIL;
+        SymptomTypeVO symptomTypeVO = new SymptomTypeVO();
+        symptomTypeVO.setTname(tname);
+        return symptomTypeService.addSymptomType(symptomTypeVO) ? RequestStatus.SUCCESS : RequestStatus.FAIL;
+    }
+
+    @PostMapping("/sub")
+    public @ResponseBody
+    RequestStatus createNewSubSymptom(String tname, String uperId){
+        if (tname==null || tname.isEmpty() || uperId==null || uperId.isEmpty()) return RequestStatus.FAIL;
+        SubSymptomTypeVO subSymptomTypeVO = new SubSymptomTypeVO();
+        subSymptomTypeVO.setTname(tname);
+        subSymptomTypeVO.setUperId(uperId);
+        return symptomTypeService.addSubSymptomType(subSymptomTypeVO)?RequestStatus.SUCCESS : RequestStatus.FAIL;
+    }
+
+    /**
      * 删除父分类
      * @param sid
      * @return
@@ -48,15 +78,6 @@ public class SymptomController {
         return symptomTypeService.deleteSubSymptomType(sid) ? RequestStatus.SUCCESS : RequestStatus.FAIL;
     }
 
-    /**
-     * 获得标记为sid的父标签
-     * @param sid
-     * @return
-     */
-    @GetMapping(value = "/{id}")
-    public @ResponseBody SymptomTypeVO findSymptomById(@PathVariable("id") String sid){
-        return symptomTypeService.findSymptomById(sid);
-    }
 
 
 }

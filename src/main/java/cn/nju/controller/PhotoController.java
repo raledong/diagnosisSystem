@@ -31,18 +31,17 @@ public class PhotoController {
     /**
      * 查看已经回复的照片
      */
-    @GetMapping("replied")
+    @GetMapping("/replied")
     public @ResponseBody List<PhotoDetailVO> getRepliedPhotos(Authentication authentication){
         UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
         String did = userDetails.getUserId();
-        System.out.println(did);
         return photoService.findRepliedPhotos(did);
     }
 
     /**
      * 查看已经回复的照片
      */
-    @GetMapping("notreplied")
+    @GetMapping("/notreplied")
     public @ResponseBody List<PhotoDetailVO> getNotRepliedPhotos(Authentication authentication){
         UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
         String did = userDetails.getUserId();
@@ -58,5 +57,6 @@ public class PhotoController {
     public @ResponseBody PhotoDetailVO getPhotoDetail(@PathVariable("id") String pid){
         return photoService.findPhotoDetailById(pid);
     }
+
 
 }
