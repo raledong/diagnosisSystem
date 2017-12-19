@@ -1,6 +1,7 @@
 package cn.nju.service.impl;
 
 import cn.nju.common.UUIDGenerator;
+import cn.nju.dao.PhotoRepository;
 import cn.nju.dao.SymptomTypeRepository;
 import cn.nju.model.SymptomType;
 import cn.nju.service.SymptomTypeService;
@@ -20,6 +21,8 @@ public class SymptomTypeServiceImpl implements SymptomTypeService {
     @Autowired
     private SymptomTypeRepository symptomTypeRepository;
 
+    @Autowired
+    private PhotoRepository photoRepository;
 
     @Override
     public List<SymptomTypeVO> findAll() {
@@ -76,7 +79,7 @@ public class SymptomTypeServiceImpl implements SymptomTypeService {
         //删除所有的子分类
         if (subSymptomTypes!=null && !subSymptomTypes.isEmpty()){
             for (SymptomType subSymptomType : subSymptomTypes){
-                deleteSubSymptomType(subSymptomType.getTid());
+                deleteSubSymptomType(subSymptomType);
             }
         }
         symptomTypeRepository.delete(sid);
@@ -89,6 +92,12 @@ public class SymptomTypeServiceImpl implements SymptomTypeService {
         return true;
     }
 
+    private boolean deleteSubSymptomType(SymptomType subSymptomType){
+        String tid = subSymptomType.getTid();
+        int count = photoRepository.countAllByTid(tid);
+        if (count != 0) return false;
+        return deleteSubSymptomType(subSymptomType.getTid());
+    }
     @Override
     public boolean updateSymptomType(SymptomTypeVO symptomTypeVO) {
         if (symptomTypeVO!=null){

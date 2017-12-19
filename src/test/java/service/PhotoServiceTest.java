@@ -2,6 +2,7 @@ package service;
 
 import cn.nju.Application;
 import cn.nju.common.UUIDGenerator;
+import cn.nju.dao.PhotoRepository;
 import cn.nju.model.Photo;
 import cn.nju.service.PhotoService;
 import cn.nju.vo.PhotoDetailVO;
@@ -18,9 +19,16 @@ public class PhotoServiceTest {
     @Autowired
     private PhotoService photoService;
 
+    @Autowired
+    private PhotoRepository photoRepository;
     @Test
     public void testFind(){
 
         System.out.println(photoService.findRepliedPhotos("1").size());
+    }
+
+    @Test
+    public void testUpdate(){
+        photoService.changeSymptom("C7UdrsGY", "154398ua");
     }
 }

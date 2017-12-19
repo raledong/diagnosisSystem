@@ -1,6 +1,7 @@
 package cn.nju.controller;
 
 import cn.nju.common.config.UserDetails;
+import cn.nju.common.enumeration.RequestStatus;
 import cn.nju.dao.PhotoRepository;
 import cn.nju.model.SymptomType;
 import cn.nju.service.PhotoService;
@@ -39,7 +40,7 @@ public class PhotoController {
     }
 
     /**
-     * 查看已经回复的照片
+     * 查看未回复的照片
      */
     @GetMapping("/notreplied")
     public @ResponseBody List<PhotoDetailVO> getNotRepliedPhotos(Authentication authentication){
@@ -59,4 +60,15 @@ public class PhotoController {
     }
 
 
+    /**
+     * 更新照片的分类
+     * @param pid
+     * @param tid
+     * @return
+     */
+    @PatchMapping("/{id}")
+    public @ResponseBody
+    RequestStatus updatePhotoSymptom(@PathVariable("id")String pid,  String tid){
+        return photoService.changeSymptom(pid, tid) ? RequestStatus.SUCCESS : RequestStatus.FAIL;
+    }
 }

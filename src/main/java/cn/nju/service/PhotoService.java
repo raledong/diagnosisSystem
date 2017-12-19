@@ -34,4 +34,12 @@ public interface PhotoService {
      * @return
      */
     List<PhotoDetailVO> findUnrepliedPhotos(String did);
+
+    /**
+     * 更改照片的舌苔类别分类
+     * @param pid 照片id
+     * @param tid 分类id
+     * @return
+     */
+    boolean changeSymptom(String pid, String tid);
 }
