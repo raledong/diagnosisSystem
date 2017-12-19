@@ -14,6 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -25,7 +26,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                    .antMatchers("/login", "/", "register").permitAll()
+                    .antMatchers("/login", "/register").permitAll()
                     .anyRequest().authenticated()
                 .and().
                     formLogin().
@@ -34,19 +35,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     defaultSuccessUrl("/", true)
                 .and()
                     .logout()
-                    .logoutSuccessUrl("/login")
+                    .logoutSuccessUrl("/login.html")
                 .and()
                     .httpBasic()
                 .and()
                     .csrf().disable()
                     .cors();
-//默认的退出登录的url为login?logout=true
 
 //                .and().sessionManagement().maximumSessions(1).expiredUrl("/login");
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/**/favicon.ico");
+        web.ignoring().antMatchers("/js/**", "/css/**", "/images/**", "/**/favicon.ico", "/bootstrap/**");
     }
 }

@@ -28,17 +28,19 @@ public class LoginController {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @RequestMapping("/")
+    public String home(){
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (username!=null && !username.isEmpty()){
+            return "FurPhotoGallery";
+        }
+        return "login";
+    }
+
     @RequestMapping("/login")
     public String login() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return "TestLogin";
-    }
-
-    @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
-    public String welcome(Model model) {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        logger.info(username);
-        return "hello";
     }
 
     /**
