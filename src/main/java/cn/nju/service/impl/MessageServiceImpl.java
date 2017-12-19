@@ -28,6 +28,16 @@ public class MessageServiceImpl implements MessageService {
         return wrapMessageToMessageVO(messages);
     }
 
+    @Override
+    public boolean addMessage(String senderId, String info, String pid) {
+        Message message = new Message();
+        message.setSenderId(senderId);
+        message.setPid(pid);
+        message.setContent(info);
+        messageRepository.save(message);
+        return true;
+    }
+
     private List<MessageVO> wrapMessageToMessageVO(List<Message> messages){
         List<MessageVO> messageVOS = new ArrayList<>();
         if (messages!=null && !messages.isEmpty()){

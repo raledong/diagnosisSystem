@@ -37,6 +37,11 @@ public class SymptomController {
         return symptomTypeService.findSymptomById(sid);
     }
 
+    /**
+     * 创建新的父分类
+     * @param tname 分类名称
+     * @return
+     */
     @PostMapping()
     public @ResponseBody
     RequestStatus createNewSymptom(String tname){
@@ -46,6 +51,12 @@ public class SymptomController {
         return symptomTypeService.addSymptomType(symptomTypeVO) ? RequestStatus.SUCCESS : RequestStatus.FAIL;
     }
 
+    /**
+     * 创建新的子分类
+     * @param tname 分类名称
+     * @param uperId 父分类ID
+     * @return
+     */
     @PostMapping("/sub")
     public @ResponseBody
     RequestStatus createNewSubSymptom(String tname, String uperId){
