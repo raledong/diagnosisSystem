@@ -44,6 +44,7 @@ public class Application extends WebMvcConfigurerAdapter {
         registry.addViewController("/photo").setViewName("FurPhotoGallery");
         registry.addViewController("/repliedphoto").setViewName("RepliedPhoto");
         registry.addViewController("/noreplyphoto").setViewName("NoReplyPhoto");
+        registry.addViewController("/detailPhoto").setViewName("Photodetail");
         registry.addViewController("/category").setViewName("CategoryManagement");
         super.addViewControllers(registry);
     }
