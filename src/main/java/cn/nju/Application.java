@@ -41,7 +41,10 @@ public class Application extends WebMvcConfigurerAdapter {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/photos").setViewName("FurPhotoGallery");
+        registry.addViewController("/photo").setViewName("FurPhotoGallery");
+        registry.addViewController("/repliedphoto").setViewName("RepliedPhoto");
+        registry.addViewController("/noreplyphoto").setViewName("NoReplyPhoto");
+        registry.addViewController("/category").setViewName("CategoryManagement");
         super.addViewControllers(registry);
     }
 
