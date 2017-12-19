@@ -23,6 +23,6 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("Cannot find user!");
         }
         GrantedAuthority authority = new SimpleGrantedAuthority(user.getType()==1?"Doctor" : "User");
-        return new UserDetails(user.getUname(), user.getPasswd(), authority);
+        return new UserDetails(user.getUid(), user.getUname(), user.getPasswd(), authority);
     }
 }
