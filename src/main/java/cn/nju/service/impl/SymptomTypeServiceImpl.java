@@ -60,7 +60,7 @@ public class SymptomTypeServiceImpl implements SymptomTypeService {
 
     @Override
     public boolean addSubSymptomType(SubSymptomTypeVO subSymptomTypeVO) {
-        if (subSymptomTypeVO != null){
+        if (subSymptomTypeVO != null && symptomTypeRepository.findOne(subSymptomTypeVO.getUperId())!=null){
             subSymptomTypeVO.setTid(UUIDGenerator.getShortUUID());
             SymptomType symptomType = new SymptomType(subSymptomTypeVO);
             symptomTypeRepository.save(symptomType);
