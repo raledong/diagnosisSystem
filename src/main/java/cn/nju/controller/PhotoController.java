@@ -39,6 +39,11 @@ public class PhotoController {
 
     }
 
+    /**
+     * 查看编号为PID的照片的详情
+     * @param pid
+     * @return
+     */
     @GetMapping("/{id}")
     public PhotoDetailVO getPhotoDetail(@PathVariable("id") String pid){
         return photoService.findPhotoDetailById(pid);
