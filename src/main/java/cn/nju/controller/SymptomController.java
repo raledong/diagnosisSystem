@@ -11,7 +11,7 @@ import java.util.List;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 
 @RestController
-@RequestMapping(path="/symptom")
+@RequestMapping(path="/api/symptom")
 public class SymptomController {
     @Autowired
     private SymptomTypeService symptomTypeService;
