@@ -49,6 +49,16 @@ public class PhotoServiceImpl implements PhotoService{
         return wrapPhotoToPhotoDetailVO(photos);
     }
 
+    @Override
+    public boolean changeSymptom(String pid, String tid) {
+        Photo photo = photoRepository.findOne(pid);
+        if (photo == null) return false;
+        if (symptomTypeRepository.findOne(tid)==null) return false;
+        photo.setTid(tid);
+        photoRepository.save(photo);
+        return true;
+    }
+
     private PhotoDetailVO wrapPhotoToPhotoDetailVO(Photo photo){
         if (photo != null){
             PhotoDetailVO photoDetailVO = new PhotoDetailVO(photo);
