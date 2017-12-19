@@ -1,5 +1,6 @@
 package cn.nju.controller;
 
+import cn.nju.common.enumeration.RequestStatus;
 import cn.nju.model.SymptomType;
 import cn.nju.service.SymptomTypeService;
 import cn.nju.vo.SymptomTypeVO;
@@ -25,11 +26,33 @@ public class SymptomController {
         return symptomTypeService.findAll();
     }
 
+    /**
+     * 删除父分类
+     * @param sid
+     * @return
+     */
     @DeleteMapping(value = "/{id}")
-    public @ResponseBody String deleteSymptom(@PathVariable("id") String sid){
-        return symptomTypeService.deleteSymptomType(sid) ? "success" : "fail";
+    public @ResponseBody
+    RequestStatus deleteSymptom(@PathVariable("id") String sid){
+        return symptomTypeService.deleteSymptomType(sid) ? RequestStatus.SUCCESS : RequestStatus.FAIL;
     }
 
+    /**
+     * 删除子分类
+     * @param sid
+     * @return
+     */
+    @DeleteMapping(value = "/sub/{id}")
+    public @ResponseBody
+    RequestStatus deleteSubSymptom(@PathVariable("id")String sid){
+        return symptomTypeService.deleteSubSymptomType(sid) ? RequestStatus.SUCCESS : RequestStatus.FAIL;
+    }
+
+    /**
+     * 获得标记为sid的父标签
+     * @param sid
+     * @return
+     */
     @GetMapping(value = "/{id}")
     public @ResponseBody SymptomTypeVO findSymptomById(@PathVariable("id") String sid){
         return symptomTypeService.findSymptomById(sid);

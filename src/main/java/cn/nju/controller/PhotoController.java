@@ -1,21 +1,24 @@
 package cn.nju.controller;
 
 import cn.nju.dao.PhotoRepository;
+import cn.nju.service.PhotoService;
+import cn.nju.vo.PhotoDetailVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(path = "/photo")
+@RequestMapping(path = "/api/photo")
 public class PhotoController {
     @Autowired
-    private PhotoRepository photoRepository;
+    private PhotoService photoService;
 
     /**
      * 查看所有照片
      */
-    @GetMapping("all")
+    @GetMapping()
     public void index(){
 
     }
@@ -34,6 +37,11 @@ public class PhotoController {
     @GetMapping("notreplied")
     public void getNotRepliedPhotos(){
 
+    }
+
+    @GetMapping("/{id}")
+    public PhotoDetailVO getPhotoDetail(@PathVariable("id") String pid){
+        return photoService.findPhotoDetailById(pid);
     }
 
 }

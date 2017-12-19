@@ -34,7 +34,7 @@ public class Photo {
     private int photoType;
 
     //上传时间
-    @Column(name = "update_date")
+    @Column(name = "upload_date")
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
     private Date updateDate;
