@@ -27,53 +27,7 @@ public class LoginController {
     private LoginService loginService;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
-//    /**
-//     * 登录页面
-//     * @return
-//     */
-//    @GetMapping("/login")
-//    public @ResponseBody String login(HttpSession httpSession){
-//        logger.info(LOGGED_IN_USER);
-//        if (httpSession.getAttribute(LOGGED_IN_USER) != null){
-//            LoggedInUser loggedInUser = (LoggedInUser) httpSession.getAttribute(LOGGED_IN_USER);
-//            logger.info(loggedInUser.getUid());
-//            //已经登录 进入主界面
-//        }
-//        //返回到登录界面
-//        return "greeting my friend";
-//    }
-//
-//    /**
-//     * 登录请求
-//     * @return
-//     */
-//    @PostMapping("/login")
-//    public @ResponseBody RequestStatus login(String uname, String passwd, HttpSession httpSession){
-//        User user = loginService.login(uname, passwd);
-//        logger.info(uname + ":" + passwd);
-//        if (user != null){
-////            httpSession.setAttribute("USER_NAME", user.getUname());
-////            httpSession.setAttribute("USER_ID", user.getUid());
-//            Authentication auth = SecurityContextHolder.getContext()
-//                    .getAuthentication();
-//            model.addAttribute("uri", request.getRequestURI())
-//                    .addAttribute("user", auth.getName())
-//                    .addAttribute("roles", auth.getAuthorities());
-//            return RequestStatus.SUCCESS;
-//        }
-//        return RequestStatus.FAIL;
-//    }
 
-//    @RequestMapping(value = "/login", method = RequestMethod.GET)
-//    public String login(Model model, String error, String logout) {
-//        if (error != null)
-//            model.addAttribute("error", "Your username and password is invalid.");
-//
-//        if (logout != null)
-//            model.addAttribute("message", "You have been logged out successfully.");
-//
-//        return "login";
-//    }
     @RequestMapping("/login")
     public String login() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
