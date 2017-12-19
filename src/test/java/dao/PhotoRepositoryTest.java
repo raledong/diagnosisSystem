@@ -21,11 +21,18 @@ public class PhotoRepositoryTest {
     public void testAddPhoto(){
         Photo photo = new Photo();
         photo.setPid(UUIDGenerator.getShortUUID());
-        photo.setDid("123");
+        photo.setDid("nw8vYYtA");
         photo.setTid("anIb6gJQ");
         photo.setPhotoType(1);
-        photo.setPosition("/Users/rale/Downloads");
+        photo.setPosition("/Users/rale/Downloads/A97D7EAB420B8C2B79306A6F12A9594A.jpg");
         photo.setTime(1);
         photoRepository.save(photo);
+    }
+
+    @Test
+    public void testAllPhoto(){
+        System.out.println(photoRepository.findAllByDidOrderByTime("1").size());
+        System.out.println(photoRepository.findAllByDidAndTidIsNotNull("1").size());
+        System.out.println(photoRepository.findAllByDidAndTidIsNull("1").size());
     }
 }

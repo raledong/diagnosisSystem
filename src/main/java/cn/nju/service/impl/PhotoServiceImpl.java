@@ -10,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Transactional
 public class PhotoServiceImpl implements PhotoService{
@@ -23,9 +26,32 @@ public class PhotoServiceImpl implements PhotoService{
     @Override
     public PhotoDetailVO findPhotoDetailById(String pid) {
         Photo photo = photoRepository.findOne(pid);
-        PhotoDetailVO photoDetailVO = null;
+        PhotoDetailVO photoDetailVO = wrapPhotoToPhotoDetailVO(photo);
+        return photoDetailVO;
+    }
+
+    @Override
+    public List<PhotoDetailVO> findAllPhotos(String did) {
+        List<Photo> photos = photoRepository.findAllByDidOrderByTime(did);
+        return wrapPhotoToPhotoDetailVO(photos);
+    }
+
+    @Override
+    public List<PhotoDetailVO> findRepliedPhotos(String did) {
+        List<Photo> photos = photoRepository.findAllByDidAndTidIsNotNull(did);
+        return wrapPhotoToPhotoDetailVO(photos);
+    }
+
+    @Override
+    public List<PhotoDetailVO> findUnrepliedPhotos(String did) {
+        List<Photo> photos = photoRepository.findAllByDidAndTidIsNull(did);
+        System.out.println(photos.size());
+        return wrapPhotoToPhotoDetailVO(photos);
+    }
+
+    private PhotoDetailVO wrapPhotoToPhotoDetailVO(Photo photo){
         if (photo != null){
-            photoDetailVO = new PhotoDetailVO(photo);
+            PhotoDetailVO photoDetailVO = new PhotoDetailVO(photo);
 
             //更新照片的标签细节
             String tid = photo.getTid();
@@ -35,7 +61,21 @@ public class PhotoServiceImpl implements PhotoService{
                 photoDetailVO.setRootClass(symptomType);
                 photoDetailVO.setChildClass(subSymptomType);
             }
+            return photoDetailVO;
         }
-        return photoDetailVO;
+        return null;
+    }
+
+    private List<PhotoDetailVO> wrapPhotoToPhotoDetailVO(List<Photo> photos){
+        List<PhotoDetailVO> photoDetailVOS = new ArrayList<>();
+        if (photos!=null && !photos.isEmpty()){
+            for (Photo photo : photos){
+                PhotoDetailVO photoDetailVO = wrapPhotoToPhotoDetailVO(photo);
+                if (photoDetailVO != null){
+                    photoDetailVOS.add(photoDetailVO);
+                }
+            }
+        }
+        return photoDetailVOS;
     }
 }
