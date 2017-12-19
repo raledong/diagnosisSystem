@@ -33,12 +33,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                     permitAll().
                     defaultSuccessUrl("/", true)
                 .and()
+                    .logout()
+                    .logoutSuccessUrl("/login")
+                .and()
                     .httpBasic()
                 .and()
                     .csrf().disable()
                     .cors();
+//默认的退出登录的url为login?logout=true
 
-//                .and().logout().logoutUrl("/logout")
 //                .and().sessionManagement().maximumSessions(1).expiredUrl("/login");
     }
 

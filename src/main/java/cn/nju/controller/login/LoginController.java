@@ -77,12 +77,14 @@ public class LoginController {
     @RequestMapping("/login")
     public String login() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return "login";
+        return "TestLogin";
     }
 
     @RequestMapping(value = {"/", "/home"}, method = RequestMethod.GET)
     public String welcome(Model model) {
-        return "home";
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        logger.info(username);
+        return "hello";
     }
 
     /**
@@ -100,11 +102,7 @@ public class LoginController {
      */
     @GetMapping("logout")
     public String logout(HttpSession httpSession){
-        logger.info((httpSession.getAttribute(LOGGED_IN_USER) != null)?"success":"fail");
-        if (httpSession.getAttribute(LOGGED_IN_USER) != null){
-            httpSession.removeAttribute(LOGGED_IN_USER);
-            httpSession.invalidate();
-        }
+        httpSession.invalidate();
         return null;
     }
 
