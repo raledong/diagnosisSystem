@@ -27,4 +27,11 @@ public interface PhotoRepository extends CrudRepository<Photo, String> {
      * @return
      */
     List<Photo> findAllByDidAndTidIsNotNull(String did);
+
+    /**
+     * 计算当前标签下的照片数量
+     * @param tid
+     * @return
+     */
+    int countAllByTid(String tid);
 }
