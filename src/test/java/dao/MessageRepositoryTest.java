@@ -22,7 +22,8 @@ public class MessageRepositoryTest {
         Message message = new Message();
         message.setContent("hello world");
         message.setMid(UUIDGenerator.getShortUUID());
-        message.setPid("123");
+        message.setSenderId("nw8vYYtA");
+        message.setPid("C7UdrsGY");
         message.setReceiveId("2131");
         messageRepository.save(message);
     }
