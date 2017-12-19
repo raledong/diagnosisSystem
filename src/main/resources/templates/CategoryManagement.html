@@ -120,7 +120,7 @@
               <div class="col-md-6 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>大类一</h2>
+                    <h2 class= "sympthonTag">大类一</h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="close-link">删除大类<i class="fa fa-close"></i></a>
                         </li>
@@ -257,6 +257,50 @@
     <script src="/js/jquery.min.js"></script>
 
     <script>
+        $.ajax({
+            type : "get", //请求方式
+            url : "/api/symptom", //发送请求地址
+//            data : {
+//                productId:productId,
+//                //发送给数据库的数据
+//            },
+            //请求成功后的回调函数有两个参数
+            success : function(data, textStatus) {
+                console.log(data)
+                $.each(data, function (index, item) {
+                    var insertText = "";
+                    insertText += '<div class="col-md-6 col-xs-12">';
+                    insertText +=   '<div class="x_panel">';
+                    insertText +=       '<div class="x_title">';
+                    insertText +=       '<h2>'+item.tname+'</h2>'
+                    insertText +=       '<ul class="nav navbar-right panel_toolbox">'
+                    insertText +=       '<li><a class="close-link">删除大类<i class="fa fa-close"></i></a></li>'
+                    insertText +=       '</ul>'
+                    insertText +=       '<div class="clearfix"></div>'
+                    insertText +=   '</div>'
+                    insertText +=   '<div class="x_content">'
+                    insertText +=   '<br />'
+                    insertText +=   '<div class="bs-example-popovers">'
+                    $.each(item.subSymptomTypes,function (index,subitem) {
+                        insertText +=       '<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" title="">'
+                        insertText +=       item.tname
+                        insertText +=       '</button>'
+                    })
+                    insertText +=   '</div><br />'
+                    insertText +=   '<div class="ln_solid"></div>'
+                    insertText +=   '<div class="input-group">'
+                    insertText +=       '<input type="text" class="form-control">'
+                    insertText +=       '<span class="input-group-btn">'
+                    insertText +=       '<button type="button" class="btn btn-primary">添加小类</button></span>'
+                    insertText +=    '</div>'
+                    insertText +=   '</div>'
+                    insertText += '</div>'
+
+                })
+                document.getElementById("insert").innerHTML(insertText);
+                console.log('success');
+            }
+        });
 
     </script>
 

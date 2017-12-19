@@ -40,7 +40,7 @@ public class LoginController {
     @RequestMapping("/login")
     public String login() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
-        return "TestLogin";
+        return "login";
     }
 
     /**
