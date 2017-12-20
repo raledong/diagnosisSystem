@@ -189,20 +189,36 @@
     <!--添加大类-->
     <script>
         $('#addType').click(function() {
-            var typeName = $('#typeName').text;
-            alert(typeName)
+            var typeName = $('#typeName').val();
+                    $.ajax({
+                        type : "post",
+                        url : "/api/symptom",
+                        data : {
+                            tname : typeName,
+                        },
+                        success: function (data,textStatus) {
+                            location.reload()
+                        }
+                    })
+        });
+
+    </script>
 
 
-            //        $.ajax({
-            //            type : "post",
-            //            url : "/api/symptom",
-            //            data : {
-            //                tname : "fatass",
-            //            },
-            //            success: function (data,textStatus) {
-            //                console.log(data)
-            //            }
-            //        })
+    <!--添加小类-->
+    <script>
+        $('#addType').click(function() {
+            var typeName = $('#typeName').val();
+            $.ajax({
+                type : "post",
+                url : "/api/symptom",
+                data : {
+                    tname : typeName,
+                },
+                success: function (data,textStatus) {
+                    location.reload()
+                }
+            })
         });
 
     </script>
