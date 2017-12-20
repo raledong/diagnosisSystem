@@ -131,7 +131,7 @@
                               <br />
                               <br />
                               <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-8">
-                                  <button class="btn btn-round btn-primary" type="reset">提交分类选择</button>
+                                  <button class="btn btn-round btn-primary" type="reset" id="submitSelect">提交分类选择</button>
                                 </div>
                               
                       </form>
@@ -270,7 +270,7 @@
                   insertText +=     '<li>'
                   insertText +=     '<a>'
                   insertText +=       '<span class="image"><img src="/img/img.jpg" alt="img"></span>'
-                  insertText +=       '<span><span>'+item.senderName+'wgkaflhsdgjhadskhglhgkdhsg</span></span>'
+                  insertText +=       '<span><span>'+item.senderName+'</span></span>'
                   insertText +=       '<span class="message">'
                   insertText +=         item.content
                   insertText +=       '</span>'
@@ -324,20 +324,36 @@
             })
         }
 
+        //提交分类
+        $('#submitSelect').click(function(){
+            var selectedTagId = $('#subClassSelect').find("option:selected").attr('tagId')
+            var selectUrl = "/api/photo/"+photoId
+
+            alert(photoId)
+            $.ajax({
+                type : "put",
+                url : selectUrl,
+                data : {
+                    tid :selectedTagId,
+
+                },
+                success : function(data, textStatus) {
+                    location.reload()
+                }
+            })
+        })
+
         //提交回复
       $('#submitReplay').click(function () {
           var text = $('#message').val()
           var senderId
-          alert(text)
-
 
           $.ajax({
               type : "post",
               url : "/api/message",
-              data:{
+              data : {
                   info : text,
                   pid : photoId,
-                  senderId : senderId,
                   success : function(data, textStatus) {
                       location.reload()
                   }
