@@ -102,9 +102,9 @@
               <div class="title_right">
                     <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
                       <div class="input-group">
-                        <input type="text" class="form-control" placeholder="">
+                        <input type="text" class="form-control" placeholder="" id="typeName">
                         <span class="input-group-btn">
-                          <button class="btn btn-default" type="button">添加大类</button>
+                          <button class="btn btn-default" type="button" id="addType">添加大类</button>
                         </span>
                       </div>
                     </div>
@@ -136,16 +136,6 @@
     <script src="/js/jquery.min.js"></script>
 
     <script>
-//        $.ajax({
-//            type : "post",
-//            url : "/api/symptom",
-//            data : {
-//                tname : "fatass",
-//            },
-//            success: function (data,textStatus) {
-//                console.log(data)
-//            }
-//        })
         $.ajax({
             type : "get", //请求方式
             url : "/api/symptom", //发送请求地址
@@ -189,11 +179,30 @@
 
                 })
 
-                console.log(insertText);
-
                 $('#typeList').html(insertText);
                 console.log('success');
             }
+        });
+
+    </script>
+
+    <!--添加大类-->
+    <script>
+        $('#addType').click(function() {
+            var typeName = $('#typeName').text;
+            alert(typeName)
+
+
+            //        $.ajax({
+            //            type : "post",
+            //            url : "/api/symptom",
+            //            data : {
+            //                tname : "fatass",
+            //            },
+            //            success: function (data,textStatus) {
+            //                console.log(data)
+            //            }
+            //        })
         });
 
     </script>

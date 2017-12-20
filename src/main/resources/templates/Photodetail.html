@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentelella Alela! | </title>
+    <title>在线医疗系统 </title>
 
     <!-- Bootstrap -->
     <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -105,10 +105,7 @@
                   </div>
                   <div class="x_content">
 
-                    <div class="col-md-7 col-sm-7 col-xs-12">
-                      <div class="product-image">
-                        <img src="/img/prod-1.jpg" alt="..." />
-                      </div>
+                    <div class="col-md-7 col-sm-7 col-xs-12" id="photoImage">
                     </div>
 
                     <div class="col-md-5 col-sm-5 col-xs-12" style="border:0px solid #e5e5e5;">
@@ -218,6 +215,35 @@
 
     <!-- jQuery -->
     <script src="/js/jquery.min.js"></script>
+
+    <script>
+      $.ajax({
+          type : "get",
+          url : "/api/photo",
+          success : function(data, textStatus) {
+              var insertText = ""
+              insertText += '<div class="product-image">'
+              insertText +=   '<img src="/img/prod-1.jpg" alt="..." />'
+              insertText += '</div>'
+              $('#photoImage').html(insertText);
+
+              insertText = ""
+              $.each(data,function (index,item) {
+
+              })
+
+//          <select class="form-control">
+//                  <option>大类一</option>
+//                  <option>大类二</option>
+//                  <option>大类三</option>
+//                  </select>
+
+
+
+          }
+      })
+    </script>
+
     <!-- Bootstrap -->
     <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
     <!-- FastClick -->

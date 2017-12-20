@@ -106,115 +106,8 @@
                   <div class="x_content" >
 
                     <div class="row" id="photoList">
-                      <div class="col-md-55">
-                        <div class="thumbnail">
-                          <div class="image view view-first">
-                            <img style="width: 100%; display: block;" src="/img/media.jpg" alt="image" />
-                            <div class="mask">
-                              <p>添加分类、回复照片</p>
-                              <div class="tools tools-bottom">
-                                <a href="#"><i class="fa fa-link"></i></a>
-                                <a href="#"><i class="fa fa-pencil"></i></a>
-                                <a href="#"><i class="fa fa-times"></i></a>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="caption">
-                            <p>标签1；标签2；标签3</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-55">
-                        <div class="thumbnail">
-                          <div class="image view view-first">
-                            <img style="width: 100%; display: block;" src="/img/media.jpg" alt="image" />
-                            <div class="mask">
-                              <p>Your Text</p>
-                              <div class="tools tools-bottom">
-                                <a href="#"><i class="fa fa-link"></i></a>
-                                <a href="#"><i class="fa fa-pencil"></i></a>
-                                <a href="#"><i class="fa fa-times"></i></a>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="caption">
-                            <p>标签1；标签2；标签3</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-55">
-                        <div class="thumbnail">
-                          <div class="image view view-first">
-                            <img style="width: 100%; display: block;" src="/img/media.jpg" alt="image" />
-                            <div class="mask">
-                              <p>Your Text</p>
-                              <div class="tools tools-bottom">
-                                <a href="#"><i class="fa fa-link"></i></a>
-                                <a href="#"><i class="fa fa-pencil"></i></a>
-                                <a href="#"><i class="fa fa-times"></i></a>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="caption">
-                            <p>标签1；标签2；标签3</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-55">
-                        <div class="thumbnail">
-                          <div class="image view view-first">
-                            <img style="width: 100%; display: block;" src="/img/media.jpg" alt="image" />
-                            <div class="mask">
-                              <p>Your Text</p>
-                              <div class="tools tools-bottom">
-                                <a href="#"><i class="fa fa-link"></i></a>
-                                <a href="#"><i class="fa fa-pencil"></i></a>
-                                <a href="#"><i class="fa fa-times"></i></a>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="caption">
-                            <p>标签1；标签2；标签3</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-55">
-                        <div class="thumbnail">
-                          <div class="image view view-first">
-                            <img style="width: 100%; display: block;" src="/img/media.jpg" alt="image" />
-                            <div class="mask">
-                              <p>Your Text</p>
-                              <div class="tools tools-bottom">
-                                <a href="#"><i class="fa fa-link"></i></a>
-                                <a href="#"><i class="fa fa-pencil"></i></a>
-                                <a href="#"><i class="fa fa-times"></i></a>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="caption">
-                            <p>标签1；标签2；标签3</p>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-md-55">
-                        <div class="thumbnail">
-                          <div class="image view view-first">
-                            <img style="width: 100%; display: block;" src="/img/media.jpg" alt="image" />
-                            <div class="mask no-caption">
-                              <div class="tools tools-bottom">
-                                <a href="#"><i class="fa fa-link"></i></a>
-                                <a href="#"><i class="fa fa-pencil"></i></a>
-                                <a href="#"><i class="fa fa-times"></i></a>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="caption">
-                            <p><strong>无标签</strong>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
                     </div>
+
                   </div>
                 </div>
               </div>
@@ -235,7 +128,7 @@
 
     <!-- jQuery -->
     <script src="/js/jquery.min.js"></script>
-
+    <!--获取界面数据-->
     <script>
       $.ajax({
           type : "get",
@@ -246,23 +139,47 @@
                   insertText += '<div class="col-md-55">'
                   insertText +=   '<div class="thumbnail">'
                   insertText +=     '<div class="image view view-first">'
-                  insertText +=     '<img style="width: 100%; display: block;" src="/img/media.jpg" alt="image" />'
-                  insertText +=       '<div class="mask">'
-                  insertText +=         '<a>查看照片详情</a>'
-                  insertText +=       '</div>'
+                  insertText +=       '<a  class="photoDetail" photoId="'+item.pid+'" href=""><img style="width: 100%; display: block;" src="/img/media.jpg" alt="image" /></a>'
                   insertText +=     '</div>'
                   insertText +=     '<div class="caption">'
-                  insertText +=       '<p>标签1；标签2；标签3</p>'
+                  insertText +=       '<p>时段：'+item.time+'</p>'
                   insertText +=     '</div>'
                   insertText +=   '</div>'
                   insertText += '</div>'
 
               })
               $('#photoList').html(insertText);
+              bindClick();
 
           }
 
       })
+
+    </script>
+
+    <!--查看照片详情-->
+    <script>
+      function bindClick(){
+          $('.photoDetail').click(function() {
+              var photoId = $(this).attr('photoId');
+              var path = "/api/photo/"+photoId
+              $.ajax({
+                type : "post", //请求方式
+                url : path, //发送请求地址
+
+//                data : {
+//                    productId:productId,
+//                    //发送给数据库的数据
+//                },
+//                //请求成功后的回调函数有两个参数
+//                success : function(data, textStatus) {
+//                    window.location.href="showProductDetail";
+//                }
+//            });
+//              return false;
+          });
+      }
+      bindClick();
 
     </script>
 
