@@ -50,13 +50,13 @@
                 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
                   <div class="menu_section">
                     <ul class="nav side-menu">
-                      <li><a href="photo"><i class="fa fa-photo"></i>全部照片</a>
+                      <li><a href="/photo"><i class="fa fa-photo"></i>全部照片</a>
                       </li>
-                      <li><a href="noreplyphoto"><i class="fa fa-comment-o"></i> 未回复</span></a>
+                      <li><a href="/noreplyphoto"><i class="fa fa-comment-o"></i> 未回复</span></a>
                       </li>
-                      <li><a href="repliedphoto"><i class="fa fa-comments-o"></i>已回复</a>
+                      <li><a href="/repliedphoto"><i class="fa fa-comments-o"></i>已回复</a>
                       </li>
-                      <li><a href="category"><i class="fa fa-edit"></i>舌苔分类管理</a>
+                      <li><a href="/category"><i class="fa fa-edit"></i>舌苔分类管理</a>
                       </li>
                     </ul>
                   </div>
@@ -116,21 +116,15 @@
                           <div class="form-group">
                               <label class="control-label col-md-3 col-sm-3 col-xs-12">一级分类</label>
                               <div class="col-md-9 col-sm-9 col-xs-12">
-                                <select class="form-control">
-                                  <option>大类一</option>
-                                  <option>大类二</option>
-                                  <option>大类三</option>
+                                <select class="form-control" id="rootClassSelect">
                                 </select>
                               </div>
                             </div>
                             <br />
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">二级分类</label>
-                                <div class="col-md-9 col-sm-9 col-xs-12">
-                                  <select class="form-control">
-                                    <option>分类一</option>
-                                    <option>分类二</option>
-                                    <option>分类三</option>
+                                <div class="col-md-9 col-sm-9 col-xs-12" >
+                                  <select class="form-control" id="subClassSelect">
                                   </select>
                                 </div>
                               </div>
@@ -146,7 +140,7 @@
                         <div class="ln_solid"></div>
                         <h2>现有标签</h2>
                         <br />
-                        <ul class="list-inline prod_size">
+                        <ul class="list-inline prod_size" id="existTags">
                           <li>
                             <button type="button" class="btn btn-default btn-xs">寒热虚实</button>
                           </li>
@@ -167,7 +161,8 @@
                               <h2>医生回复</h2>
                               <div class="clearfix"></div>
                             </div>
-                            <div class="x_content">
+                          <div id="doctorMessage">
+                            <div class="x_content" >
                               <ul class="list-unstyled msg_list">
                                 <li>
                                   <a>
@@ -184,13 +179,14 @@
                                 </li>
                               </ul>
                             </div>
+                          </div>
+
                             <label for="message"></label>
-                            <div class="ln_solid"></div>
                             <label for="message">添加回复</label>
                             <textarea id="message" required="required" class="form-control" name="message" data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Come on! You need to enter at least a 20 caracters long comment.." data-parsley-validation-threshold="10"></textarea>
                             <br />
                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-5">
-                                <span class="btn btn-primary">添加回复</span>
+                                <span class="btn btn-primary" id="submitReplay">添加回复</span>
                             </div>
                           </div>
                     </div>
@@ -217,32 +213,140 @@
     <script src="/js/jquery.min.js"></script>
 
     <script>
+        var urlPath = window.location.href;
+        var urlList = urlPath.split("/")
+        var length = urlList.length
+        var photoId = urlList[length-1]
+
+        var photoDetailUrl = "/api/photo/"+photoId
+
+        //ajax获取照片信息
       $.ajax({
           type : "get",
-          url : "/api/photo",
+          url : photoDetailUrl,
+
           success : function(data, textStatus) {
+//            插入照片
               var insertText = ""
               insertText += '<div class="product-image">'
-              insertText +=   '<img src="/img/prod-1.jpg" alt="..." />'
+              insertText +=   '<img src="'+data.position+'" alt="..." />'
               insertText += '</div>'
               $('#photoImage').html(insertText);
-
+//            插入已有标签
               insertText = ""
-              $.each(data,function (index,item) {
+              if(data.rootClassName != ""){
+                  insertText += '<li>'
+                  insertText +=   '<button type="button" class="btn btn-default btn-xs">'
+                  insertText +=     data.rootClassName
+                  insertText +=   '</button>'
+                  insertText += '</li>'
+              }
+              if (data.childClassName != ""){
+                  insertText += '<li>'
+                  insertText +=   '<button type="button" class="btn btn-default btn-xs">'
+                  insertText +=     data.childClassName
+                  insertText +=   '</button>'
+                  insertText += '</li>'
+              }
 
-              })
-
-//          <select class="form-control">
-//                  <option>大类一</option>
-//                  <option>大类二</option>
-//                  <option>大类三</option>
-//                  </select>
+              $('#existTags').html(insertText);
 
 
 
           }
       })
+        //ajax获取医生回复信息
+        var messageUrl = "/api/message/"+photoId
+
+        //alert(messageUrl)
+      $.ajax({
+          type : "get",
+          url : messageUrl,
+          success : function(data, textStatus) {
+              var insertText = ""
+              $.each(data,function (index,item){
+                  insertText += '<div class="x_content">'
+                  insertText +=   '<ul class="list-unstyled msg_list">'
+                  insertText +=     '<li>'
+                  insertText +=     '<a>'
+                  insertText +=       '<span class="image"><img src="/img/img.jpg" alt="img"></span>'
+                  insertText +=       '<span><span>'+item.senderName+'wgkaflhsdgjhadskhglhgkdhsg</span></span>'
+                  insertText +=       '<span class="message">'
+                  insertText +=         item.content
+                  insertText +=       '</span>'
+                  insertText +=     '</a>'
+                  insertText +=     '</li>'
+                  insertText +=   '</ul>'
+                  insertText += '</div>'
+              })
+
+              $('#doctorMessage').html(insertText);
+          }
+      })
+
+      //ajax获取分类信息
+        var symptoms
+      $.ajax({
+          type : "get",
+          url : "/api/symptom/",
+          success : function(data, textStatus) {
+              insertText = ""
+              symptoms = data
+              $.each(data,function (index,item) {
+                  insertText += '<option tagId="'+item.tid+'">'
+                  insertText +=   item.tname
+                  insertText += '</option>'
+              })
+
+              $('#rootClassSelect').html(insertText)
+              bindChoose()
+          }
+
+
+      })
+        //下拉框监听
+        function bindChoose() {
+            $('#rootClassSelect').change(function(){
+                var selectedTag = $(this).find("option:selected").attr('tagId')
+
+                $.each(symptoms,function (index,item) {
+                    if(item.tid == selectedTag){
+                        insertText = ""
+                        $.each(item.subSymptomTypes,function (index,subItems){
+                            insertText += '<option tagId="'+subItems.tid+'">'
+                            insertText +=   subItems.tname
+                            insertText += '</option>'
+                        })
+
+                    }
+                })
+                $('#subClassSelect').html(insertText)
+            })
+        }
+
+        //提交回复
+      $('#submitReplay').click(function () {
+          var text = $('#message').val()
+          var senderId
+          alert(text)
+
+
+          $.ajax({
+              type : "post",
+              url : "/api/message",
+              data:{
+                  info : text,
+                  pid : photoId,
+                  senderId : senderId,
+                  success : function(data, textStatus) {
+                      location.reload()
+                  }
+              }
+          })
+      })
+
     </script>
+
 
     <!-- Bootstrap -->
     <script src="/bootstrap/dist/js/bootstrap.min.js"></script>

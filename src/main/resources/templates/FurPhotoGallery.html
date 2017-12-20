@@ -139,7 +139,7 @@
                   insertText += '<div class="col-md-55">'
                   insertText +=   '<div class="thumbnail">'
                   insertText +=     '<div class="image view view-first">'
-                  insertText +=       '<a  class="photoDetail" photoId="'+item.pid+'" href=""><img style="width: 100%; display: block;" src="/img/media.jpg" alt="image" /></a>'
+                  insertText +=       '<a  class="photoDetail"  href="/photoDetail/'+item.pid+'"><img style="width: 100%; display: block;" src="/img/media.jpg" alt="image" /></a>'
                   insertText +=     '</div>'
                   insertText +=     '<div class="caption">'
                   insertText +=       '<p>时段：'+item.time+'</p>'
@@ -149,7 +149,6 @@
 
               })
               $('#photoList').html(insertText);
-              bindClick();
 
           }
 
@@ -157,31 +156,6 @@
 
     </script>
 
-    <!--查看照片详情-->
-    <script>
-      function bindClick(){
-          $('.photoDetail').click(function() {
-              var photoId = $(this).attr('photoId');
-              var path = "/api/photo/"+photoId
-              $.ajax({
-                type : "post", //请求方式
-                url : path, //发送请求地址
-
-//                data : {
-//                    productId:productId,
-//                    //发送给数据库的数据
-//                },
-//                //请求成功后的回调函数有两个参数
-//                success : function(data, textStatus) {
-//                    window.location.href="showProductDetail";
-//                }
-//            });
-//              return false;
-          });
-      }
-      bindClick();
-
-    </script>
 
     <!-- Bootstrap -->
     <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
