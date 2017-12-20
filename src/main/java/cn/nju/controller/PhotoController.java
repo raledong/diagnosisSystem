@@ -66,7 +66,7 @@ public class PhotoController {
      * @param tid
      * @return
      */
-    @PatchMapping("/{id}")
+    @PutMapping("/{id}")
     public @ResponseBody
     RequestStatus updatePhotoSymptom(@PathVariable("id")String pid,  String tid){
         return photoService.changeSymptom(pid, tid) ? RequestStatus.SUCCESS : RequestStatus.FAIL;
