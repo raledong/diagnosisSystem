@@ -1,5 +1,6 @@
 package cn.nju.service.impl;
 
+import cn.nju.common.UUIDGenerator;
 import cn.nju.dao.MessageRepository;
 import cn.nju.dao.UserRepository;
 import cn.nju.model.Message;
@@ -31,6 +32,7 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public boolean addMessage(String senderId, String info, String pid) {
         Message message = new Message();
+        message.setMid(UUIDGenerator.getShortUUID());
         message.setSenderId(senderId);
         message.setPid(pid);
         message.setContent(info);

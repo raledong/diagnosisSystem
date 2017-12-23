@@ -1,9 +1,11 @@
 package cn.nju.controller;
 
+import cn.nju.common.config.UserDetails;
 import cn.nju.common.enumeration.RequestStatus;
 import cn.nju.service.MessageService;
 import cn.nju.vo.MessageVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,14 +29,15 @@ public class MessageController {
 
     /**
      * 创建一条新的回复
-     * @param senderId
+     * @param authentication 认证信息
      * @param info
      * @param pid
      * @return
      */
     @PostMapping()
-    public RequestStatus createMessage(String senderId, String info, String pid){
-        return messageService.addMessage(senderId, info, pid) ? RequestStatus.SUCCESS : RequestStatus.FAIL;
+    public RequestStatus createMessage(String info, String pid, Authentication authentication){
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return messageService.addMessage(userDetails.getUserId(), info, pid) ? RequestStatus.SUCCESS : RequestStatus.FAIL;
 
     }
 }

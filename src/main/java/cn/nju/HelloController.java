@@ -18,7 +18,7 @@ public class HelloController {
     public String helloHtml(Map<String,Object> map){
 
         map.put("hello","from TemplateController.helloHtml");
-        return"/hello";
+        return"/newLogin";
     }
 
 }

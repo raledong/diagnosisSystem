@@ -35,7 +35,7 @@
                       <!-- menu profile quick info -->
                       <div class="profile clearfix">
                         <div class="profile_pic">
-                          <img src="/img/img.jpg" alt="..." class="img-circle profile_img">
+                          <img src="/img/医生头像.jpg" alt="..." class="img-circle profile_img">
                         </div>
                         <div class="profile_info">
                           <span>欢迎您,</span>
@@ -76,7 +76,7 @@
                     <ul class="nav navbar-nav navbar-right">
                       <li class="">
                         <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                          <img src="../static/img/img.jpg" alt="">医生
+                          <img src="../static/img/医生头像.jp" alt="">医生
                           <span class=" fa fa-angle-down"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -124,7 +124,6 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -153,7 +152,7 @@
                     insertText +=       '<div class="x_title">'
                     insertText +=       '<h2>'+item.tname+'</h2>'
                     insertText +=       '<ul class="nav navbar-right panel_toolbox">'
-                    insertText +=       '<li><a class="close-link">删除大类<i class="fa fa-close"></i></a></li>'
+                    insertText +=       '<li><a class="close-link" tagId="'+item.tid+'">删除大类<i class="fa fa-close"></i></a></li>'
                     insertText +=       '</ul>'
                     insertText +=       '<div class="clearfix"></div>'
                     insertText +=   '</div>'
@@ -163,15 +162,15 @@
                     $.each(item.subSymptomTypes,function (index,subitem) {
                         console.log(index)
                         insertText +=       '<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" title="">'
-                        insertText +=       item.tname
+                        insertText +=       subitem.tname
                         insertText +=       '</button>'
                     })
                     insertText +=   '</div><br />'
                     insertText +=   '<div class="ln_solid"></div>'
                     insertText +=   '<div class="input-group">'
-                    insertText +=       '<input type="text" class="form-control">'
+                    insertText +=       '<input type="text" class="form-control" uperId="'+item.tid+'">'
                     insertText +=       '<span class="input-group-btn">'
-                    insertText +=       '<button type="button" class="btn btn-primary">添加小类</button></span>'
+                    insertText +=       '<button type="button" class="btn btn-primary"  >添加小类</button></span>'
                     insertText +=    '</div>'
                     insertText +=   '</div>'
                     insertText += '</div>'
@@ -180,7 +179,9 @@
                 })
 
                 $('#typeList').html(insertText);
-                console.log('success');
+                //console.log('success');
+                bindClick()
+                bindClickDelte()
             }
         });
 
@@ -189,23 +190,70 @@
     <!--添加大类-->
     <script>
         $('#addType').click(function() {
-            var typeName = $('#typeName').text;
-            alert(typeName)
-
-
-            //        $.ajax({
-            //            type : "post",
-            //            url : "/api/symptom",
-            //            data : {
-            //                tname : "fatass",
-            //            },
-            //            success: function (data,textStatus) {
-            //                console.log(data)
-            //            }
-            //        })
+            var typeName = $('#typeName').val();
+                    $.ajax({
+                        type : "post",
+                        url : "/api/symptom",
+                        data : {
+                            tname : typeName,
+                        },
+                        success: function (data,textStatus) {
+                            location.reload()
+                        }
+                    })
         });
 
     </script>
+
+
+    <!--添加小类-->
+    <script>
+        function bindClick() {
+            $('.btn.btn-primary').click(function() {
+                var subTypeName = $(this).parent(this).prev().val()
+                var uperId = $(this).parent(this).prev().attr('uperId')
+//                alert(subTypeName)
+                
+                $.ajax({
+                    type : "post",
+                    url : "/api/symptom/sub",
+                    data : {
+                        tname : subTypeName,
+                        uperId : uperId,
+
+                    },
+                    success: function (data,textStatus) {
+                        location.reload()
+                    }
+                })
+            });
+        }
+        bindClick()
+
+    </script>
+
+    <!--删除大类-->
+    <script>
+        function bindClickDelte() {
+            $('.close-link').click(function () {
+                var deleteUrl = "/api/symptom/"+$(this).attr('tagId')
+//                alert(deleteUrl)
+
+                $.ajax({
+                    type : "delete",
+                    url : deleteUrl,
+                    success : function(data, textStatus) {
+                        location.reload()
+                    }
+
+                })
+            })
+        }
+        bindClickDelte()
+    </script>
+
+
+
 
     <!-- Bootstrap -->
     <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -213,10 +261,10 @@
     <script src="/js/fastclick.js"></script>
     <!-- NProgress -->
     <script src="/js/nprogress.js"></script>
-    
+
     <!-- Custom Theme Scripts -->
     <script src="/js/custom.min.js"></script>
 
-	
+
   </body>
 </html>
