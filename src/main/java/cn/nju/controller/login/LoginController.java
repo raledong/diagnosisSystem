@@ -35,18 +35,9 @@ public class LoginController {
     @RequestMapping("/login")
     public String login() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        System.out.println(username+"hello");
         return "login";
     }
-
-    /**
-     * 登录页面
-     * @param info
-     */
-    @PostMapping("/register")
-    public void register(String info){
-
-    }
-
 
     /**
      * 退出登录
