@@ -35,7 +35,7 @@
                 <!-- menu profile quick info -->
                 <div class="profile clearfix">
                   <div class="profile_pic">
-                    <img src="/img/img.jpg" alt="..." class="img-circle profile_img">
+                    <img src="/img/医生头像.jpg" alt="..." class="img-circle profile_img">
                   </div>
                   <div class="profile_info">
                     <span>欢迎您,</span>
@@ -76,11 +76,11 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="/img/img.jpg" alt="">医生
+                  <img src="/img/医生头像.jpg" alt="">医生
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                  <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i>退出登陆</a></li>
+                  <li><a href="／login.html"><i class="fa fa-sign-out pull-right"></i>退出登陆</a></li>
                 </ul>
               </li>
             </ul>
@@ -167,7 +167,7 @@
                                 <li>
                                   <a>
                                     <span class="image">
-                                      <img src="/img/img.jpg" alt="img">
+                                      <img src="/img/医生头像.jpg" alt="img">
                                     </span>
                                     <span>
                                       <span>John Smith</span>
@@ -201,7 +201,6 @@
         <!-- footer content -->
         <footer>
           <div class="pull-right">
-            Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
           </div>
           <div class="clearfix"></div>
         </footer>
@@ -269,9 +268,9 @@
                   insertText +=   '<ul class="list-unstyled msg_list">'
                   insertText +=     '<li>'
                   insertText +=     '<a>'
-                  insertText +=       '<span class="image"><img src="/img/img.jpg" alt="img"></span>'
-                  insertText +=       '<span><span>'+item.senderName+'</span></span>'
-                  insertText +=       '<span class="message">'
+                  insertText +=       '<span class="image"><img src="/img/医生头像.jpg" alt="img"></span>'
+                  insertText +=       '<span><span>'+item.senderName+' 医生</span></span>'
+                  insertText +=       '<span class="message" style="font-size: 13px;">'
                   insertText +=         item.content
                   insertText +=       '</span>'
                   insertText +=     '</a>'
@@ -329,7 +328,7 @@
             var selectedTagId = $('#subClassSelect').find("option:selected").attr('tagId')
             var selectUrl = "/api/photo/"+photoId
 
-            alert(photoId)
+            //alert(photoId)
             $.ajax({
                 type : "put",
                 url : selectUrl,

@@ -21,10 +21,10 @@ public class PhotoRepositoryTest {
     public void testAddPhoto(){
         Photo photo = new Photo();
         photo.setPid(UUIDGenerator.getShortUUID());
-        photo.setDid("nw8vYYtA");
-        photo.setTid("anIb6gJQ");
+        photo.setDid("1");
+        photo.setTid("RtVe6egl");
         photo.setPhotoType(1);
-        photo.setPosition("/Users/rale/Downloads/A97D7EAB420B8C2B79306A6F12A9594A.jpg");
+        photo.setPosition("/img/患者照片.jpg");
         photo.setTime(1);
         photoRepository.save(photo);
     }
