@@ -25,44 +25,44 @@
   <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        <div class="col-md-3 left_col">
-          <div class="left_col scroll-view">
-                <div class="navbar nav_title" style="border: 0;">
-                        <a href="＃" class="site_title"><i class="fa fa-paw"></i> <span>在线医疗系统</span></a>
-                      </div>
-          
-                      <div class="clearfix"></div>
-                      <!-- menu profile quick info -->
-                      <div class="profile clearfix">
-                        <div class="profile_pic">
-                          <img src="/img/医生头像.jpg" alt="..." class="img-circle profile_img">
-                        </div>
-                        <div class="profile_info">
-                          <span>欢迎您,</span>
-                          <h2>医生</h2>
-                        </div>
-                      </div>
-                      <!-- /menu profile quick info -->
-                      <br />
-                      <br />
-          
-                      <!-- sidebar menu -->
-                      <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-                        <div class="menu_section">
-                            <ul class="nav side-menu">
-                                <li><a href="photo"><i class="fa fa-photo"></i>全部照片</a>
-                                </li>
-                                <li><a href="noreplyphoto"><i class="fa fa-comment-o"></i> 未回复</span></a>
-                                </li>
-                                <li><a href="repliedphoto"><i class="fa fa-comments-o"></i>已回复</a>
-                                </li>
-                                <li class="active"><a href="category"><i class="fa fa-edit"></i>舌苔分类管理</a>
-                                </li>
-                            </ul>
-                        </div>
-                      </div>
-                      <!-- /sidebar menu -->
-          </div>
+        <div class="col-md-3 left_col" th:include="fragment :: copy">
+          <!--<div class="left_col scroll-view">-->
+                <!--<div class="navbar nav_title" style="border: 0;">-->
+                        <!--<a href="＃" class="site_title"><i class="fa fa-paw"></i> <span>在线医疗系统</span></a>-->
+                      <!--</div>-->
+
+                      <!--<div class="clearfix"></div>-->
+                      <!--&lt;!&ndash; menu profile quick info &ndash;&gt;-->
+                      <!--<div class="profile clearfix">-->
+                        <!--<div class="profile_pic">-->
+                          <!--<img src="/img/医生头像.jpg" alt="..." class="img-circle profile_img">-->
+                        <!--</div>-->
+                        <!--<div class="profile_info">-->
+                          <!--<span>欢迎您,</span>-->
+                          <!--<h2>医生</h2>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                      <!--&lt;!&ndash; /menu profile quick info &ndash;&gt;-->
+                      <!--<br />-->
+                      <!--<br />-->
+
+                      <!--&lt;!&ndash; sidebar menu &ndash;&gt;-->
+                      <!--<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">-->
+                        <!--<div class="menu_section">-->
+                            <!--<ul class="nav side-menu">-->
+                                <!--<li><a href="photo"><i class="fa fa-photo"></i>全部照片</a>-->
+                                <!--</li>-->
+                                <!--<li><a href="noreplyphoto"><i class="fa fa-comment-o"></i> 未回复</span></a>-->
+                                <!--</li>-->
+                                <!--<li><a href="repliedphoto"><i class="fa fa-comments-o"></i>已回复</a>-->
+                                <!--</li>-->
+                                <!--<li class="active"><a href="category"><i class="fa fa-edit"></i>舌苔分类管理</a>-->
+                                <!--</li>-->
+                            <!--</ul>-->
+                        <!--</div>-->
+                      <!--</div>-->
+                      <!--&lt;!&ndash; /sidebar menu &ndash;&gt;-->
+          <!--</div>-->
         </div>
 
         <!-- top navigation -->
@@ -76,7 +76,7 @@
                     <ul class="nav navbar-nav navbar-right">
                       <li class="">
                         <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                          <img src="../static/img/医生头像.jp" alt="">医生
+                          <img src="/img/医生头像.jpg" alt="">医生
                           <span class=" fa fa-angle-down"></span>
                         </a>
                         <ul class="dropdown-menu dropdown-usermenu pull-right">
