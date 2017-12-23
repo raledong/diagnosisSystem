@@ -1,42 +1,38 @@
 package cn.nju.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
+/**
+ * 用户申请表单
+ */
 @Entity
-@Table(name = "user")
-public class User {
-    public static final int USER = 0;
-    public static final int DOCTOR = 1;
+@Table(name = "application")
+public class UserApplication {
 
-    public User(){}
-
-    public User(UserApplication userApplication){
-        this.setUid(userApplication.getAid());
-        this.setType(userApplication.getType());
-        this.setUname(userApplication.getUname());
-        this.setSymptom(userApplication.getSymptom());
-        this.setPasswd(userApplication.getPasswd());
-        this.setMedicalHistory(userApplication.getMedicalHistory());
-        this.setGender(userApplication.getGender());
-        this.setAge(userApplication.getAge());
-        this.setAccount(userApplication.getAccount());
-    }
+    public static final int APPROVE = 1;
+    public static final int DISAPPROVE = 2;
     //用户id
     @Id
-    @Column(name = "uid")
-    private String uid;
+    private String aid;
 
-    //用户姓名
+    //用户名
     @Column(name = "uname")
     private String uname;
 
-    //用户性别，0代表男，1代表女
+    //用户性别（0代表男，1代表女）
     @Column(name = "gender")
     private int gender;
 
     //用户年龄
     @Column(name = "age")
     private int age;
+
+    //职业
+    @Column(name = "job")
+    private String job;
 
     //病史
     @Column(name = "medical_history")
@@ -46,23 +42,27 @@ public class User {
     @Column(name = "symptom")
     private String symptom;
 
-    //用户类型 0代表用户 1代表医生
+    //用户类型（0表示用户，1表示医生）
     @Column(name = "type")
     private int type;
 
     @Column(name = "account")
     private String account;
+
     //密码
     @Column(name = "passwd")
     private String passwd;
 
+    //申请状态（0表示未审核，1表示审核通过，2表示审核未通过）
+    @Column(name = "state")
+    private int state;
 
-    public String getUid() {
-        return uid;
+    public String getAid() {
+        return aid;
     }
 
-    public void setUid(String uid) {
-        this.uid = uid;
+    public void setAid(String aid) {
+        this.aid = aid;
     }
 
     public String getUname() {
@@ -89,6 +89,14 @@ public class User {
         this.age = age;
     }
 
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
+
     public String getMedicalHistory() {
         return medicalHistory;
     }
@@ -113,6 +121,14 @@ public class User {
         this.type = type;
     }
 
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
+    }
+
     public String getPasswd() {
         return passwd;
     }
@@ -121,11 +137,11 @@ public class User {
         this.passwd = passwd;
     }
 
-    public String getAccount() {
-        return account;
+    public int getState() {
+        return state;
     }
 
-    public void setAccount(String account) {
-        this.account = account;
+    public void setState(int state) {
+        this.state = state;
     }
 }
