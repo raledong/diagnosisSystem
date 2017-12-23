@@ -21,24 +21,24 @@ public class ApplicationServiceImpl implements ApplicationService{
     @Override
     public boolean approve(String appId) {
         UserApplication userApplication = userApplicationRepository.findOne(appId);
-        if (userApplication !=null){
-            userApplication.setState(UserApplication.APPROVE);
-            userApplicationRepository.save(userApplication);
-            User user = new User(userApplication);
-            userRepository.save(user);
-            return true;
-        }
-        return false;
+        if (userApplication == null) return false;
+        if (userApplication.getState() != UserApplication.PENDING) return false;
+
+        userApplication.setState(UserApplication.APPROVE);
+        userApplicationRepository.save(userApplication);
+        User user = new User(userApplication);
+        userRepository.save(user);
+        return true;
     }
 
     @Override
     public boolean disapprove(String appId) {
         UserApplication userApplication = userApplicationRepository.findOne(appId);
-        if (userApplication !=null){
-            userApplication.setState(UserApplication.DISAPPROVE);
-            userApplicationRepository.save(userApplication);
-            return true;
-        }
-        return false;
+        if (userApplication==null) return false;
+        if (userApplication.getState() == UserApplication.PENDING) return false;
+
+        userApplication.setState(UserApplication.DISAPPROVE);
+        userApplicationRepository.save(userApplication);
+        return true;
     }
 }

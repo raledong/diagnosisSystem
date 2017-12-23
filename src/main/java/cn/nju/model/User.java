@@ -20,7 +20,9 @@ public class User {
         this.setGender(userApplication.getGender());
         this.setAge(userApplication.getAge());
         this.setAccount(userApplication.getAccount());
+        this.setJob(userApplication.getJob());
     }
+
     //用户id
     @Id
     @Column(name = "uid")
@@ -56,6 +58,9 @@ public class User {
     @Column(name = "passwd")
     private String passwd;
 
+    //职业
+    @Column(name = "job")
+    private String job;
 
     public String getUid() {
         return uid;
@@ -127,5 +132,13 @@ public class User {
 
     public void setAccount(String account) {
         this.account = account;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
     }
 }

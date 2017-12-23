@@ -11,9 +11,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "application")
 public class UserApplication {
-
+    public static final int PENDING = 0;
     public static final int APPROVE = 1;
     public static final int DISAPPROVE = 2;
+
     //用户id
     @Id
     private String aid;
