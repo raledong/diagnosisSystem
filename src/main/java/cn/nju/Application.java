@@ -51,6 +51,7 @@ public class Application extends WebMvcConfigurerAdapter {
         registry.addViewController("/application").setViewName("ApplicationManagement");
         registry.addViewController("/notice").setViewName("ReleaseNotice");
         registry.addViewController("/classified").setViewName("ClassifiedPhoto");
+        registry.addViewController("/classManagement").setViewName("ClassManagement");
         super.addViewControllers(registry);
     }
 
