@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>在线医疗系统</title>
+
+    <!-- Bootstrap -->
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/css/nprogress.css" rel="stylesheet">
+
+    <!-- Custom styling plus plugins -->
+    <link href="/css/custom.min.css" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col" th:include="fragment :: copy"></div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <img src="/img/医生头像.jpg" alt="">医生
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i>退出登陆</a></li>
+                            </ul>
+                        </li>
+
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="clearfix"></div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2>注册申请</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content">
+
+                                <div class="row">
+                                    <div class="col-xs-12 table">
+                                        <table class="table table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th style="width: 20%">序号</th>
+                                                <th style="width: 20%">姓名</th>
+                                                <th style="width: 20%">类型</th>
+                                                <th style="width: 20%">通过</th>
+                                                <th style="width: 20%">拒绝</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                <td>董宁宁</td>
+                                                <td>病人</td>
+                                                <td><button type="button" class="btn btn-success btn-sm">通过</button></td>
+                                                <td><button type="button" class="btn btn-danger btn-sm">拒绝</button></td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                <td>soleil</td>
+                                                <td>医生</td>
+                                                <td><button type="button" class="btn btn-success btn-sm">通过</button></td>
+                                                <td><button type="button" class="btn btn-danger btn-sm">拒绝</button></td>
+                                            </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                    <!-- /.col -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<!--<script>-->
+    <!--$.ajax({-->
+        <!--type : "get",-->
+        <!--url : "/api/photo/notreplied",-->
+        <!--success : function(data, textStatus) {-->
+            <!--var insertText = "";-->
+            <!--$.each(data, function (index, item) {-->
+
+            <!--})-->
+            <!--$('#photoList').html(insertText);-->
+
+        <!--}-->
+
+    <!--})-->
+
+<!--</script>-->
+
+<!-- Bootstrap -->
+<script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="/js/fastclick.js"></script>
+<!-- NProgress -->
+<script src="/js/nprogress.js"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="/js/custom.min.js"></script>
+</body>
+</html>
