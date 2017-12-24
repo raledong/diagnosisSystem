@@ -22,7 +22,7 @@ public class PhotoRepositoryTest {
         Photo photo = new Photo();
         photo.setPid(UUIDGenerator.getShortUUID());
         photo.setDid("1");
-        photo.setTid("RtVe6egl");
+        photo.setTid("3");
         photo.setPosition("/img/患者照片.jpg");
         photo.setTime(1);
         photoRepository.save(photo);
