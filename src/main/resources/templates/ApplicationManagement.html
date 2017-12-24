@@ -79,7 +79,7 @@
                                                 <th style="width: 20%">拒绝</th>
                                             </tr>
                                             </thead>
-                                            <tbody>
+                                            <tbody id="applicationList">
                                             <tr>
                                                 <td>1</td>
                                                 <td>董宁宁</td>
@@ -120,22 +120,76 @@
 <!-- jQuery -->
 <script src="/js/jquery.min.js"></script>
 
-<!--<script>-->
-    <!--$.ajax({-->
-        <!--type : "get",-->
-        <!--url : "/api/photo/notreplied",-->
-        <!--success : function(data, textStatus) {-->
-            <!--var insertText = "";-->
-            <!--$.each(data, function (index, item) {-->
+<script>
+    $.ajax({
+        type : "get",
+        url : "/api/application",
+        success : function(data, textStatus) {
+            var insertText = "";
+            var count = 0 ;
+            $.each(data, function (index, item) {
+                count ++
+                insertText += '<tr>'
+                insertText +=   '<td>'+count+'</td>'
+                insertText +=   '<td>'+item.name+'</td>'
+                insertText +=   '<td>'+item.type+'</td>'
+                insertText +=   '<td><button type="button" class="btn btn-success btn-sm"  userId="'+item.aid+'">通过</button></td>'
+                insertText +=   '<td><button type="button" class="btn btn-danger btn-sm" userId="'+item.aid+'">拒绝</button></td>'
+                insertText += '</tr>'
+            })
 
-            <!--})-->
-            <!--$('#photoList').html(insertText);-->
+            $('#applicationList').html(insertText);
+            approveBind()
+            disapproveBind()
 
-        <!--}-->
+        }
 
-    <!--})-->
+    })
+    
+    function approveBind() {
+        //通过申请
+        $('.btn.btn-success.btn-sm').click(function() {
+            var userId = $(this).attr('userId')
 
-<!--</script>-->
+            $.ajax({
+                type : "put",
+                url : "/api/application/approve/"+userId,
+                data : {
+                    id : userId,
+                },
+                success: function (data,textStatus) {
+                    location.reload()
+                }
+//          })
+        });
+    });
+    }
+
+    function disapproveBind() {
+        //拒绝申请
+        $('.btn.btn-danger.btn-sm').click(function() {
+            var userId = $(this).attr('userId')
+
+            $.ajax({
+                type : "put",
+                url : "/api/application/disapprove/"+userId,
+                data : {
+                    id : userId,
+                },
+                success: function (data,textStatus) {
+                    location.reload()
+                }
+//          })
+            });
+        });
+    }
+
+    approveBind()
+    disapproveBind()
+
+
+
+</script>
 
 <!-- Bootstrap -->
 <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
