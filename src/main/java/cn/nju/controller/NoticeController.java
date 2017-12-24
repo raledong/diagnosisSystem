@@ -28,9 +28,12 @@ public class NoticeController {
     }
 
     @PostMapping("")
-    public @ResponseBody RequestStatus addNotice(@RequestBody NoticeVO noticeVO, Authentication authentication){
+    public @ResponseBody RequestStatus addNotice(@RequestParam String title, @RequestParam String content, Authentication authentication){
         UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
         String did = userDetails.getUserId();
+        NoticeVO noticeVO = new NoticeVO();
+        noticeVO.setContent(content);
+        noticeVO.setTitle(title);
         return noticeService.addNotice(noticeVO, did) ? RequestStatus.SUCCESS : RequestStatus.FAIL;
     }
 }

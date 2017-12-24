@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>在线医疗系统</title>
+
+    <!-- Bootstrap -->
+    <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/css/nprogress.css" rel="stylesheet">
+
+    <!-- Custom Theme Style -->
+    <link href="/css/custom.min.css" rel="stylesheet">
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col" th:include="fragment :: copy">
+        </div>
+
+        <!-- top navigation -->
+        <div class="top_nav">
+            <div class="nav_menu">
+                <nav>
+                    <div class="nav toggle">
+                        <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+                    </div>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="">
+                            <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <img src="/img/医生头像.jpg" alt="">医生
+                                <span class=" fa fa-angle-down"></span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-usermenu pull-right">
+                                <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i>退出登陆</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div class="right_col" role="main">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3>舌苔分类管理</h3>
+
+                        <br />
+                    </div>
+
+                    <div class="title_right">
+                        <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right top_search">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="" id="typeName">
+                                <span class="input-group-btn">
+                          <button class="btn btn-default" type="button" id="addType">添加大类</button>
+                        </span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="clearfix"></div>
+
+                <div class="row" id="typeList">
+                </div>
+            </div>
+        </div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <footer>
+            <div class="pull-right">
+            </div>
+            <div class="clearfix"></div>
+        </footer>
+        <!-- /footer content -->
+    </div>
+</div>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js"></script>
+
+<script>
+    $.ajax({
+        type : "get", //请求方式
+        url : "/api/symptom", //发送请求地址
+//            data : {
+//                productId:productId,
+//                //发送给数据库的数据
+//            },
+        //请求成功后的回调函数有两个参数
+        success : function(data, textStatus) {
+            var insertText = "";
+            $.each(data, function (index, item) {
+                console.log(index)
+                insertText += '<div class="col-md-6 col-xs-12">'
+                insertText +=   '<div class="x_panel">'
+                insertText +=       '<div class="x_title">'
+                insertText +=       '<h2>'+item.tname+'</h2>'
+                insertText +=       '<ul class="nav navbar-right panel_toolbox">'
+                insertText +=       '<li><a class="close-link" tagId="'+item.tid+'">删除大类<i class="fa fa-close"></i></a></li>'
+                insertText +=       '</ul>'
+                insertText +=       '<div class="clearfix"></div>'
+                insertText +=   '</div>'
+                insertText +=   '<div class="x_content">'
+                insertText +=   '<br />'
+                insertText +=   '<div class="bs-example-popovers">'
+                $.each(item.subSymptomTypes,function (index,subitem) {
+                    console.log(index)
+                    insertText +=       '<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" title="">'
+                    insertText +=       subitem.tname
+                    insertText +=       '</button>'
+                })
+                insertText +=   '</div><br />'
+                insertText +=   '<div class="ln_solid"></div>'
+                insertText +=   '<div class="input-group">'
+                insertText +=       '<input type="text" class="form-control" uperId="'+item.tid+'">'
+                insertText +=       '<span class="input-group-btn">'
+                insertText +=       '<button type="button" class="btn btn-primary"  >添加小类</button></span>'
+                insertText +=    '</div>'
+                insertText +=   '</div>'
+                insertText += '</div>'
+                insertText += '</div>'
+
+            })
+
+            $('#typeList').html(insertText);
+            //console.log('success');
+            bindClick()
+            bindClickDelte()
+        }
+    });
+
+</script>
+
+<!--添加大类-->
+<script>
+    $('#addType').click(function() {
+        var typeName = $('#typeName').val();
+        $.ajax({
+            type : "post",
+            url : "/api/symptom",
+            data : {
+                tname : typeName,
+            },
+            success: function (data,textStatus) {
+                location.reload()
+            }
+        })
+    });
+
+</script>
+
+
+<!--添加小类-->
+<script>
+    function bindClick() {
+        $('.btn.btn-primary').click(function() {
+            var subTypeName = $(this).parent(this).prev().val()
+            var uperId = $(this).parent(this).prev().attr('uperId')
+//                alert(subTypeName)
+
+            $.ajax({
+                type : "post",
+                url : "/api/symptom/sub",
+                data : {
+                    tname : subTypeName,
+                    uperId : uperId,
+
+                },
+                success: function (data,textStatus) {
+                    location.reload()
+                }
+            })
+        });
+    }
+    bindClick()
+
+</script>
+
+<!--删除大类-->
+<script>
+    function bindClickDelte() {
+        $('.close-link').click(function () {
+            var deleteUrl = "/api/symptom/"+$(this).attr('tagId')
+//                alert(deleteUrl)
+
+            $.ajax({
+                type : "delete",
+                url : deleteUrl,
+                success : function(data, textStatus) {
+                    location.reload()
+                }
+
+            })
+        })
+    }
+    bindClickDelte()
+</script>
+
+
+
+
+<!-- Bootstrap -->
+<script src="/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="/js/fastclick.js"></script>
+<!-- NProgress -->
+<script src="/js/nprogress.js"></script>
+
+<!-- Custom Theme Scripts -->
+<script src="/js/custom.min.js"></script>
+
+
+</body>
+</html>
