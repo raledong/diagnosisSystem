@@ -2,11 +2,11 @@ package cn.nju.controller;
 
 import cn.nju.common.enumeration.RequestStatus;
 import cn.nju.service.ApplicationService;
+import cn.nju.vo.ApplicationVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/application")
@@ -33,6 +33,15 @@ public class UserApplicationController {
     @PutMapping("disapprove/{id}")
     public RequestStatus disapprove(@PathVariable("id") String id){
         return applicationService.disapprove(id) ? RequestStatus.SUCCESS : RequestStatus.FAIL;
+    }
+
+    /**
+     * 获得所有等待审核的申请
+     * @return
+     */
+    @GetMapping
+    public List<ApplicationVO> getAllPendingApplications(){
+        return applicationService.findAllPendingApplications();
     }
 
 }

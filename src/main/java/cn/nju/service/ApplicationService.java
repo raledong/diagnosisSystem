@@ -1,6 +1,10 @@
 package cn.nju.service;
 
 
+import cn.nju.vo.ApplicationVO;
+
+import java.util.List;
+
 public interface ApplicationService {
     /**
      * 通过审核
@@ -16,4 +20,9 @@ public interface ApplicationService {
      */
     boolean disapprove(String appId);
 
+    /**
+     * 获得所有等待审核的申请
+     * @return
+     */
+    List<ApplicationVO> findAllPendingApplications();
 }

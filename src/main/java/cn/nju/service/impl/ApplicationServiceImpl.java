@@ -5,9 +5,13 @@ import cn.nju.dao.UserRepository;
 import cn.nju.model.User;
 import cn.nju.model.UserApplication;
 import cn.nju.service.ApplicationService;
+import cn.nju.vo.ApplicationVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -40,5 +44,18 @@ public class ApplicationServiceImpl implements ApplicationService{
         userApplication.setState(UserApplication.DISAPPROVE);
         userApplicationRepository.save(userApplication);
         return true;
+    }
+
+    @Override
+    public List<ApplicationVO> findAllPendingApplications() {
+        List<UserApplication> applications = userApplicationRepository.findAllByState(UserApplication.PENDING);
+        List<ApplicationVO> applicationVOS = new ArrayList<>();
+        if (applications!=null && !applications.isEmpty()){
+            for (UserApplication userApplication : applications){
+                ApplicationVO applicationVO = new ApplicationVO(userApplication);
+                applicationVOS.add(applicationVO);
+            }
+        }
+        return applicationVOS;
     }
 }
