@@ -1,16 +1,18 @@
 package cn.nju.model;
 
+import cn.nju.vo.NoticeVO;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
+import javax.persistence.*;
 import java.util.Date;
 
 /**
  * 公告PO
  */
+@Entity
+@Table(name = "notice")
+@EntityListeners(AuditingEntityListener.class)
 public class Notice {
 
     @Id
@@ -22,7 +24,7 @@ public class Notice {
 
     @Temporal(TemporalType.TIMESTAMP)
     @CreatedDate
-    @Column(name = "data")
+    @Column(name = "date")
     private Date date;
 
     @Column(name = "uid")
@@ -30,6 +32,14 @@ public class Notice {
 
     @Column(name = "title")
     private String title;
+
+    public Notice() {
+    }
+
+    public Notice(NoticeVO noticeVO){
+        this.setTitle(noticeVO.getTitle());
+        this.setContent(noticeVO.getContent());
+    }
 
     public String getNid() {
         return nid;

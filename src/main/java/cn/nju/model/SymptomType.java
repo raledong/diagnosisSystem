@@ -1,6 +1,5 @@
 package cn.nju.model;
 
-import cn.nju.vo.SubSymptomTypeVO;
 import cn.nju.vo.SymptomTypeVO;
 
 import javax.persistence.*;
@@ -33,12 +32,6 @@ public class SymptomType {
         this.setDescription(symptomTypeVO.getDescription());
     }
 
-    public SymptomType(SubSymptomTypeVO subSymptomTypeVO){
-        this.setTid(subSymptomTypeVO.getTid());
-        this.setUperId(subSymptomTypeVO.getUperId());
-        this.setTname(subSymptomTypeVO.getTname());
-        this.setDescription(subSymptomTypeVO.getDescription());
-    }
 
     public SymptomType(){}
 

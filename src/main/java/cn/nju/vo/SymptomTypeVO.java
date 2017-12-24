@@ -6,37 +6,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SymptomTypeVO {
-    //父类信息
-    //分类的id
+
     private String tid;
 
-    //分类名称
+    private String uperId;
+
     private String tname;
 
-    //分类详细描述
     private String description;
 
-    //子类信息
-    private List<SubSymptomTypeVO> subSymptomTypes;
+    private List<SymptomTypeVO> subSymptomTypes;
 
-    public SymptomTypeVO(SymptomType symptomType, List<SymptomType> subSymptomTypes){
-        this(symptomType);
-        if (subSymptomTypes!=null && !subSymptomTypes.isEmpty()){
-            for (SymptomType subSymptomType : subSymptomTypes){
-                addSubSymptomTypes(subSymptomType);
-            }
-        }
+    public SymptomTypeVO(){
+        subSymptomTypes = new ArrayList<>();
     }
 
     public SymptomTypeVO(SymptomType symptomType){
         this();
         this.setTid(symptomType.getTid());
+        this.setUperId(symptomType.getUperId());
         this.setTname(symptomType.getTname());
         this.setDescription(symptomType.getDescription());
-    }
-
-    public SymptomTypeVO(){
-        this.subSymptomTypes = new ArrayList<>();
     }
     public String getTid() {
         return tid;
@@ -44,6 +34,14 @@ public class SymptomTypeVO {
 
     public void setTid(String tid) {
         this.tid = tid;
+    }
+
+    public String getUperId() {
+        return uperId;
+    }
+
+    public void setUperId(String uperId) {
+        this.uperId = uperId;
     }
 
     public String getTname() {
@@ -62,24 +60,28 @@ public class SymptomTypeVO {
         this.description = description;
     }
 
-    public List<SubSymptomTypeVO> getSubSymptomTypes() {
+    public List<SymptomTypeVO> getSubSymptomTypes() {
         return subSymptomTypes;
     }
 
-    public void setSubSymptomTypes(List<SubSymptomTypeVO> subSymptomTypes) {
+    public void setSubSymptomTypes(List<SymptomTypeVO> subSymptomTypes) {
         this.subSymptomTypes = subSymptomTypes;
     }
 
-    public void addSubSymptomTypes(SymptomType symptomType){
-        SubSymptomTypeVO subSymptomTypeVO = new SubSymptomTypeVO(symptomType);
-        subSymptomTypes.add(subSymptomTypeVO);
+    public void addSubSymptomType(SymptomType symptomType){
+        SymptomTypeVO symptomTypeVO = new SymptomTypeVO(symptomType);
+        subSymptomTypes.add(symptomTypeVO);
     }
 
     public void addSubSymptomTypes(List<SymptomType> symptomTypes){
         if (symptomTypes!=null && !symptomTypes.isEmpty()){
-            for (SymptomType symptomType : symptomTypes){
-                addSubSymptomTypes(symptomType);
+            for (SymptomType tempSymptomType : symptomTypes){
+                addSubSymptomType(tempSymptomType);
             }
         }
+    }
+
+    public void addSubSymptomType(SymptomTypeVO symptomTypeVO){
+        subSymptomTypes.add(symptomTypeVO);
     }
 }

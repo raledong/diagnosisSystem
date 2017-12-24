@@ -1,20 +1,17 @@
 package cn.nju.controller;
 
 import cn.nju.common.enumeration.RequestStatus;
-import cn.nju.model.SymptomType;
 import cn.nju.service.SymptomTypeService;
-import cn.nju.vo.SubSymptomTypeVO;
 import cn.nju.vo.SymptomTypeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-
 @RestController
 @RequestMapping(path="/api/symptom")
 public class SymptomController {
+
     @Autowired
     private SymptomTypeService symptomTypeService;
 
@@ -33,7 +30,8 @@ public class SymptomController {
      * @return
      */
     @GetMapping(value = "/{id}")
-    public @ResponseBody SymptomTypeVO findSymptomById(@PathVariable("id") String sid){
+    public @ResponseBody
+    SymptomTypeVO findSymptomById(@PathVariable("id") String sid){
         return symptomTypeService.findSymptomById(sid);
     }
 
@@ -61,7 +59,7 @@ public class SymptomController {
     public @ResponseBody
     RequestStatus createNewSubSymptom(String tname, String uperId){
         if (tname==null || tname.isEmpty() || uperId==null || uperId.isEmpty()) return RequestStatus.FAIL;
-        SubSymptomTypeVO subSymptomTypeVO = new SubSymptomTypeVO();
+        SymptomTypeVO subSymptomTypeVO = new SymptomTypeVO();
         subSymptomTypeVO.setTname(tname);
         subSymptomTypeVO.setUperId(uperId);
         return symptomTypeService.addSubSymptomType(subSymptomTypeVO)?RequestStatus.SUCCESS : RequestStatus.FAIL;

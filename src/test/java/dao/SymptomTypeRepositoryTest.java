@@ -30,10 +30,21 @@ public class SymptomTypeRepositoryTest {
     @Test
     public void testAddSubSymptoms(){
         SymptomType symptomType = new SymptomType();
-        symptomType.setTid(UUIDGenerator.getShortUUID());
-        symptomType.setUperId("1");
-        symptomType.setTname("sub");
+        symptomType.setTid("1");
+        symptomType.setUperId(null);
+        symptomType.setTname("parent");
         symptomTypeRepository.save(symptomType);
 
+        SymptomType symptomType1 = new SymptomType();
+        symptomType1.setTid("2");
+        symptomType1.setUperId("1");
+        symptomType1.setTname("second level tag");
+        symptomTypeRepository.save(symptomType1);
+
+        SymptomType symptomType2 = new SymptomType();
+        symptomType2.setTid("3");
+        symptomType2.setUperId("2");
+        symptomType2.setTname("third level tag");
+        symptomTypeRepository.save(symptomType2);
     }
 }

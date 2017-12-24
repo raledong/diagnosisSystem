@@ -32,6 +32,19 @@ public class UserRepositoryTest {
     }
 
     @Test
+    public void testAddDoctor(){
+        User user = new User();
+        user.setUid(UUIDGenerator.getShortUUID());
+        user.setAge(18);
+        user.setGender(0);
+        user.setMedicalHistory("nothing2");
+        user.setPasswd("rale");
+        user.setSymptom("nothing");
+        user.setUname("rale");
+        user.setType(1);
+        userRepository.save(user);
+    }
+    @Test
     public void testFind(){
         User user = userRepository.findDistinctByUnameAndPasswdAndType("rale", "hello", 1);
         System.out.println(user.getMedicalHistory());

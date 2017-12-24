@@ -1,7 +1,5 @@
 package cn.nju.service;
 
-import cn.nju.model.SymptomType;
-import cn.nju.vo.SubSymptomTypeVO;
 import cn.nju.vo.SymptomTypeVO;
 
 import java.util.List;
@@ -33,7 +31,7 @@ public interface SymptomTypeService {
      * @param subSymptomTypeVO
      * @return
      */
-    boolean addSubSymptomType(SubSymptomTypeVO subSymptomTypeVO);
+    boolean addSubSymptomType(SymptomTypeVO subSymptomTypeVO);
 
     /**
      * 删除父类型分类
@@ -61,5 +59,5 @@ public interface SymptomTypeService {
      * @param subSymptomTypeVO
      * @return
      */
-    boolean updateSubSymptomType(SubSymptomTypeVO subSymptomTypeVO);
+    boolean updateSubSymptomType(SymptomTypeVO subSymptomTypeVO);
 }

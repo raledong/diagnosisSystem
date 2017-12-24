@@ -5,11 +5,9 @@ import cn.nju.dao.PhotoRepository;
 import cn.nju.dao.SymptomTypeRepository;
 import cn.nju.model.SymptomType;
 import cn.nju.service.SymptomTypeService;
-import cn.nju.vo.SubSymptomTypeVO;
 import cn.nju.vo.SymptomTypeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
@@ -30,16 +28,29 @@ public class SymptomTypeServiceImpl implements SymptomTypeService {
         List<SymptomType> symptomTypes = symptomTypeRepository.findByUperIdIsNull();
         List<SymptomTypeVO> symptomTypeVOS = new ArrayList<>();
 
-        for (SymptomType symptomType : symptomTypes){
-            //获得父节点的id
-            String symptomTypeId = symptomType.getTid();
-            List<SymptomType> subSymptoms = symptomTypeRepository.findByUperId(symptomTypeId);
+        if (symptomTypes != null && !symptomTypes.isEmpty()){
+            for (SymptomType symptomType : symptomTypes){
+                //获得父节点的id
+                String symptomTypeId = symptomType.getTid();
+                //获得一级节点下所有的二级节点
+                List<SymptomType> subSymptoms = symptomTypeRepository.findByUperId(symptomTypeId);
+                //将父节点封装成VO
+                SymptomTypeVO symptomTypeVO = new SymptomTypeVO(symptomType);
 
-            //封装成VO
-            SymptomTypeVO symptomTypeVO = new SymptomTypeVO(symptomType);
-            symptomTypeVO.addSubSymptomTypes(subSymptoms);
-            symptomTypeVOS.add(symptomTypeVO);
+                if (subSymptoms!=null && !subSymptoms.isEmpty()){
+                    for (SymptomType subSymptom : subSymptoms){
+                        SymptomTypeVO subSymptomVO = new SymptomTypeVO(subSymptom);
+                        List<SymptomType> subSubSymptoms = symptomTypeRepository.findByUperId(subSymptom.getTid());
+                        subSymptomVO.addSubSymptomTypes(subSubSymptoms);
+
+                        symptomTypeVO.addSubSymptomType(subSymptomVO);
+                    }
+                }
+                symptomTypeVOS.add(symptomTypeVO);
+            }
         }
+
+
         return symptomTypeVOS;
     }
 
@@ -62,7 +73,7 @@ public class SymptomTypeServiceImpl implements SymptomTypeService {
     }
 
     @Override
-    public boolean addSubSymptomType(SubSymptomTypeVO subSymptomTypeVO) {
+    public boolean addSubSymptomType(SymptomTypeVO subSymptomTypeVO) {
         if (subSymptomTypeVO != null && symptomTypeRepository.findOne(subSymptomTypeVO.getUperId())!=null){
             subSymptomTypeVO.setTid(UUIDGenerator.getShortUUID());
             SymptomType symptomType = new SymptomType(subSymptomTypeVO);
@@ -109,7 +120,7 @@ public class SymptomTypeServiceImpl implements SymptomTypeService {
     }
 
     @Override
-    public boolean updateSubSymptomType(SubSymptomTypeVO subSymptomTypeVO) {
+    public boolean updateSubSymptomType(SymptomTypeVO subSymptomTypeVO) {
         if (subSymptomTypeVO!=null){
             SymptomType symptomType = new SymptomType(subSymptomTypeVO);
             symptomTypeRepository.save(symptomType);
