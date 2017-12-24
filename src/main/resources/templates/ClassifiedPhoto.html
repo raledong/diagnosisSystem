@@ -62,34 +62,45 @@
                     <div class="col-md-12">
                         <div class="x_panel">
                             <div class="x_title">
-                                <h2>发布通知</h2>
+                                <h2>照片分类查看</h2>
                                 <div class="clearfix"></div>
                             </div>
                             <div class="x_content">
-                                <form id="demo-form2" data-parsley-validate="" class="form-horizontal form-label-left" novalidate="">
+                                <div class="form-group">
+                                    <label class="control-label col-md-3 col-sm-3 col-xs-12">选择类别</label>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <select class="form-control">
+                                            <option>Choose option</option>
+                                            <option>Option one</option>
+                                            <option>Option two</option>
+                                            <option>Option three</option>
+                                            <option>Option four</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <select class="form-control">
+                                            <option>Choose option</option>
+                                            <option>Option one</option>
+                                            <option>Option two</option>
+                                            <option>Option three</option>
+                                            <option>Option four</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <select class="form-control">
+                                            <option>Choose option</option>
+                                            <option>Option one</option>
+                                            <option>Option two</option>
+                                            <option>Option three</option>
+                                            <option>Option four</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <br/><br/>
+                                <div class="ln_solid"></div>
 
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="title">通知标题<span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <input type="text" id="title" required="required" class="form-control col-md-7 col-xs-12">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-md-3 col-sm-3 col-xs-12">通知内容<span class="required">*</span>
-                                        </label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                            <textarea class="form-control" rows="3" id="content"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="ln_solid"></div>
-                                    <div class="form-group">
-                                        <div class="col-md-8 col-sm-6 col-xs-12 col-md-offset-3">
-                                            <button type="submit" class="btn btn-success" id="releaseNotice">发布通知</button>
-                                        </div>
-                                    </div>
-
-                                </form>
+                                <div class="row" id="photoList">
+                                </div>
 
                             </div>
                         </div>
@@ -111,28 +122,32 @@
 <!-- jQuery -->
 <script src="/js/jquery.min.js"></script>
 
-<script>
+<!--<script>-->
+    <!--$.ajax({-->
+        <!--type : "get",-->
+        <!--url : "/api/photo/notreplied",-->
+        <!--success : function(data, textStatus) {-->
+            <!--var insertText = "";-->
+            <!--$.each(data, function (index, item) {-->
+                <!--insertText += '<div class="col-md-55">'-->
+                <!--insertText +=   '<div class="thumbnail">'-->
+                <!--insertText +=     '<div class="image view view-first">'-->
+                <!--insertText +=       '<a  class="photoDetail"  href="/photoDetail/'+item.pid+'"><img style="width: 100%; display: block;" src="'+item.position+'" alt="image" /></a>'-->
+                <!--insertText +=     '</div>'-->
+                <!--insertText +=     '<div class="caption">'-->
+                <!--insertText +=       '<p>时段：'+item.time+'</p>'-->
+                <!--insertText +=     '</div>'-->
+                <!--insertText +=   '</div>'-->
+                <!--insertText += '</div>'-->
 
-    //提交回复
-    $('#releaseNotice').click(function () {
-        var title = $('#title').val()
-        var content = $('#content').val()
+            <!--})-->
+            <!--$('#photoList').html(insertText);-->
 
-//        alert(title + content)
-        $.ajax({
-            type : "post",
-            url : "/api/notice",
-            data : {
-                title : title,
-                content : content,
-                success : function(data, textStatus) {
-                    alert("发送通知成功")
-                }
-            }
-        })
-    })
+        <!--}-->
 
-</script>
+    <!--})-->
+
+<!--</script>-->
 
 <!-- Bootstrap -->
 <script src="/bootstrap/dist/js/bootstrap.min.js"></script>
