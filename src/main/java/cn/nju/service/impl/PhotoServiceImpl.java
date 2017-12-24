@@ -6,6 +6,7 @@ import cn.nju.model.Photo;
 import cn.nju.model.SymptomType;
 import cn.nju.service.PhotoService;
 import cn.nju.vo.PhotoDetailVO;
+import cn.nju.vo.SymptomTypeDetailVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -62,15 +63,10 @@ public class PhotoServiceImpl implements PhotoService{
     private PhotoDetailVO wrapPhotoToPhotoDetailVO(Photo photo){
         if (photo != null){
             PhotoDetailVO photoDetailVO = new PhotoDetailVO(photo);
-
             //更新照片的标签细节
-            String tid = photo.getTid();
-            if (tid!=null && !tid.isEmpty()){
-                SymptomType subSymptomType = symptomTypeRepository.findOne(tid);
-                SymptomType symptomType = symptomTypeRepository.findOne(subSymptomType.getUperId());
-                photoDetailVO.setRootClass(symptomType);
-                photoDetailVO.setChildClass(subSymptomType);
-            }
+            String[] tids = photo.getTids();
+            List<SymptomTypeDetailVO> symptomTypeDetailVOS = wrapSymptomToSymptomTypeDetailVO(tids);
+            photoDetailVO.setSymptomTypeDetails(symptomTypeDetailVOS);
             return photoDetailVO;
         }
         return null;
@@ -87,5 +83,19 @@ public class PhotoServiceImpl implements PhotoService{
             }
         }
         return photoDetailVOS;
+    }
+
+    private List<SymptomTypeDetailVO> wrapSymptomToSymptomTypeDetailVO(String[] tids){
+        List<SymptomTypeDetailVO> symptomTypeDetailVOS = new ArrayList<>();
+        if (tids != null && tids.length > 0){
+            for (String tid : tids){
+                SymptomType symptomType = symptomTypeRepository.findOne(tid);
+                SymptomType pSymptomType = symptomTypeRepository.findOne(symptomType.getUperId());
+                SymptomType ppSymptomType = symptomTypeRepository.findOne(pSymptomType.getUperId());
+                SymptomTypeDetailVO symptomTypeDetailVO = new SymptomTypeDetailVO(symptomType.getTid(), symptomType.getTname(), pSymptomType.getTname(), ppSymptomType.getTname());
+                symptomTypeDetailVOS.add(symptomTypeDetailVO);
+            }
+        }
+        return symptomTypeDetailVOS;
     }
 }

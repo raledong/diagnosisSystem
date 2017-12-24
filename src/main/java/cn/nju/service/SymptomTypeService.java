@@ -1,5 +1,6 @@
 package cn.nju.service;
 
+import cn.nju.vo.SymptomTypeDetailVO;
 import cn.nju.vo.SymptomTypeVO;
 
 import java.util.List;
@@ -60,4 +61,5 @@ public interface SymptomTypeService {
      * @return
      */
     boolean updateSubSymptomType(SymptomTypeVO subSymptomTypeVO);
+
 }

@@ -3,34 +3,34 @@ package cn.nju.vo;
 import cn.nju.model.Photo;
 import cn.nju.model.SymptomType;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class PhotoDetailVO {
 
     //照片id
     private String pid;
 
     //照片路径
-    private String position;
+    private String[] positions;
 
     //照片拍摄时间
     private String time;
 
-     //父类id
-    private String rootClassName;
+    //照片的标签
+    private List<SymptomTypeDetailVO> symptomTypeDetails;
 
-    //父类名称
-    private String rootClassId;
-
-    //子类id
-    private String childClassName;
-
-    //子类名称
-    private String childClassId;
+    public PhotoDetailVO(){
+        symptomTypeDetails = new ArrayList<>();
+    }
 
     public PhotoDetailVO(Photo photo){
+        this();
         this.setPid(photo.getPid());
-        this.setPosition(photo.getPosition());
+        this.setPositions(photo.getPositions());
         this.setTime(photo.getTime());
     }
+
     public String getPid() {
         return pid;
     }
@@ -39,12 +39,12 @@ public class PhotoDetailVO {
         this.pid = pid;
     }
 
-    public String getPosition() {
-        return position;
+    public String[] getPositions() {
+        return positions;
     }
 
-    public void setPosition(String position) {
-        this.position = position;
+    public void setPositions(String[] positions) {
+        this.positions = positions;
     }
 
     public String getTime() {
@@ -63,45 +63,16 @@ public class PhotoDetailVO {
             default: this.time = "无";
         }
     }
-    public String getRootClassName() {
-        return rootClassName;
+
+    public List<SymptomTypeDetailVO> getSymptomTypeDetails() {
+        return symptomTypeDetails;
     }
 
-    public void setRootClassName(String rootClassName) {
-        this.rootClassName = rootClassName;
+    public void setSymptomTypeDetails(List<SymptomTypeDetailVO> symptomTypeDetails) {
+        this.symptomTypeDetails = symptomTypeDetails;
     }
 
-    public String getRootClassId() {
-        return rootClassId;
-    }
-
-    public void setRootClassId(String rootClassId) {
-        this.rootClassId = rootClassId;
-    }
-
-    public void setRootClass(SymptomType symptomType){
-        this.setRootClassId(symptomType.getTid());
-        this.setRootClassName(symptomType.getTname());
-    }
-
-    public String getChildClassName() {
-        return childClassName;
-    }
-
-    public void setChildClassName(String childClassName) {
-        this.childClassName = childClassName;
-    }
-
-    public String getChildClassId() {
-        return childClassId;
-    }
-
-    public void setChildClassId(String childClassId) {
-        this.childClassId = childClassId;
-    }
-
-    public void setChildClass(SymptomType symptomType){
-        this.setChildClassId(symptomType.getTid());
-        this.setChildClassName(symptomType.getTname());
+    public void addSymptomTypeDetail(SymptomTypeDetailVO symptomTypeDetailVO){
+        this.symptomTypeDetails.add(symptomTypeDetailVO);
     }
 }

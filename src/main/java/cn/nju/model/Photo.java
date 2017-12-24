@@ -70,12 +70,19 @@ public class Photo {
         return tid;
     }
 
+    public String[] getTids(){
+        return tid.split(",");
+    }
     public void setTid(String tid) {
         this.tid = tid;
     }
 
     public String getPosition() {
         return position;
+    }
+
+    public String[] getPositions(){
+        return position.split(",");
     }
 
     public void setPosition(String position) {
