@@ -38,4 +38,20 @@ public class SymptomTypeDetailVO {
     public void setPpname(String ppname) {
         this.ppname = ppname;
     }
+
+    public String getTid() {
+        return tid;
+    }
+
+    public String getTname() {
+        return tname;
+    }
+
+    public String getPname() {
+        return pname;
+    }
+
+    public String getPpname() {
+        return ppname;
+    }
 }
