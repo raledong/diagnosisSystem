@@ -31,10 +31,6 @@ public class Photo {
     @Column(name = "position")
     private String position;
 
-    //照片类型
-    @Column(name = "photo_type")
-    private int photoType;
-
     //上传时间
     @Column(name = "upload_date")
     @Temporal(TemporalType.TIMESTAMP)
@@ -84,14 +80,6 @@ public class Photo {
 
     public void setPosition(String position) {
         this.position = position;
-    }
-
-    public int getPhotoType() {
-        return photoType;
-    }
-
-    public void setPhotoType(int photoType) {
-        this.photoType = photoType;
     }
 
     public Date getUpdateDate() {
