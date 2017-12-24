@@ -39,7 +39,7 @@ public class ApplicationServiceImpl implements ApplicationService{
     public boolean disapprove(String appId) {
         UserApplication userApplication = userApplicationRepository.findOne(appId);
         if (userApplication==null) return false;
-        if (userApplication.getState() == UserApplication.PENDING) return false;
+        if (userApplication.getState() != UserApplication.PENDING) return false;
 
         userApplication.setState(UserApplication.DISAPPROVE);
         userApplicationRepository.save(userApplication);

@@ -169,7 +169,6 @@
         //拒绝申请
         $('.btn.btn-danger.btn-sm').click(function() {
             var userId = $(this).attr('userId')
-
             $.ajax({
                 type : "put",
                 url : "/api/application/disapprove/"+userId,
