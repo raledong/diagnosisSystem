@@ -67,126 +67,22 @@
                             </div>
                             <div class="x_content">
                                 <div class="row">
-                                    <div class="col-sm-4 mail_list_column">
-                                        <button id="compose" class="btn btn-sm btn-success btn-block" type="button">增加一级类目</button>
-                                        <a href="#">
-                                            <div class="mail_list">
-                                                <br />
-                                                <div class="left">
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="right">
-                                                    <strong>舌苔小类一</strong>
-                                                    <button type="button" class="btn btn-danger btn-sm" style="float:right">删除此类</button>
-                                                </div>
-                                                <br />
-                                                <br />
-                                            </div>
-                                        </a>
-                                        <br />
-                                        <br />
-                                        <a href="#">
-                                            <div class="mail_list">
-                                                <div class="left">
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="right">
-                                                    <strong>舌苔小类一</strong>
-                                                    <button type="button" class="btn btn-danger btn-sm" style="float:right">删除此类</button>
-                                                </div>
-                                                <br /><br />
-                                            </div>
-                                        </a>
-                                        <br />
-                                        <br />
-                                        <a href="#">
-                                            <div class="mail_list">
-                                                <div class="left">
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="right">
-                                                    <strong>舌苔小类一</strong>
-                                                    <button type="button" class="btn btn-danger btn-sm" style="float:right">删除此类</button>
-                                                </div>
-                                                <br /><br />
-                                            </div>
-                                        </a>
+                                    <div class="col-sm-4 mail_list_column" >
+                                        <button class="btn btn-sm btn-success btn-block" type="button" data-toggle="modal" data-target="#myModal">增加一级类目</button>
+                                        <div id="rootClass">
+                                        </div>
                                     </div>
                                     <!-- /MAIL LIST -->
                                     <div class="col-sm-4 mail_list_column">
-                                        <button id="compose" class="btn btn-sm btn-success btn-block" type="button">增加二级类目</button>
-                                        <a href="#">
-                                            <div class="mail_list">
-                                                <br />
-                                                <div class="left">
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="right">
-                                                    <strong>舌苔小类一</strong>
-                                                    <button type="button" class="btn btn-danger btn-sm" style="float:right">删除此类</button>
-                                                </div>
-                                                <br />
-                                                <br />
-                                            </div>
-                                        </a>
-                                        <br />
-                                        <br />
-                                        <a href="#">
-                                            <div class="mail_list">
-                                                <div class="left">
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="right">
-                                                    <strong>舌苔大类一</strong>
-                                                    <button type="button" class="btn btn-danger btn-sm" style="float:right">删除此类</button>
-                                                </div>
-                                                <br /><br />
-                                            </div>
-                                        </a>
+                                        <button id="addSecondClass" class="btn btn-sm btn-success btn-block" type="button"  >增加二级类目</button>
+                                        <div id="secondClass">
+                                        </div>
                                     </div>
+                                    <!-- /MAIL LIST -->
                                     <div class="col-sm-4 mail_list_column">
-                                        <button id="compose" class="btn btn-sm btn-success btn-block" type="button">增加三级类目</button>
-                                        <a href="#">
-                                            <div class="mail_list">
-                                                <br />
-                                                <div class="left">
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="right">
-                                                    <strong>舌苔小类一</strong>
-                                                    <button type="button" class="btn btn-danger btn-sm" style="float:right">删除此类</button>
-                                                </div>
-                                                <br />
-                                                <br />
-                                            </div>
-                                        </a>
-                                        <br />
-                                        <br />
-                                        <a href="#">
-                                            <div class="mail_list">
-                                                <div class="left">
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="right">
-                                                    <strong>舌苔小类二</strong>
-                                                    <button type="button" class="btn btn-danger btn-sm" style="float:right">删除此类</button>
-                                                </div>
-                                                <br /><br />
-                                            </div>
-                                        </a>
-                                        <br/><br/>
-                                        <a href="#">
-                                            <div class="mail_list">
-                                                <div class="left">
-                                                    <i class="fa fa-star"></i>
-                                                </div>
-                                                <div class="right">
-                                                    <strong>舌苔小类一</strong>
-                                                    <button type="button" class="btn btn-danger btn-sm" style="float:right">删除此类</button>
-                                                </div>
-                                                <br /><br />
-                                            </div>
-                                        </a>
+                                        <button id="addThirdClass" class="btn btn-sm btn-success btn-block" type="button">增加三级类目</button>
+                                        <div id="thirdClass">
+                                        </div>
                                     </div>
 
 
@@ -209,66 +105,160 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">添加一级分类</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text"  id="typeName" required="required" class="form-control col-md-7 col-xs-12">
+            </div>
+            <br/><br/><br/>
+            <div class="modal-footer">
+                <button type="button" id="addFirstClass" class="btn btn-primary">添加</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- jQuery -->
 <script src="/js/jquery.min.js"></script>
 
-<!--<script>-->
-    <!--$.ajax({-->
-        <!--type : "get", //请求方式-->
-        <!--url : "/api/symptom", //发送请求地址-->
-<!--//            data : {-->
-<!--//                productId:productId,-->
-<!--//                //发送给数据库的数据-->
-<!--//            },-->
-        <!--//请求成功后的回调函数有两个参数-->
-        <!--success : function(data, textStatus) {-->
-            <!--var insertText = "";-->
-            <!--$.each(data, function (index, item) {-->
-                <!--console.log(index)-->
-                <!--insertText += '<div class="col-md-6 col-xs-12">'-->
-                <!--insertText +=   '<div class="x_panel">'-->
-                <!--insertText +=       '<div class="x_title">'-->
-                <!--insertText +=       '<h2>'+item.tname+'</h2>'-->
-                <!--insertText +=       '<ul class="nav navbar-right panel_toolbox">'-->
-                <!--insertText +=       '<li><a class="close-link" tagId="'+item.tid+'">删除大类<i class="fa fa-close"></i></a></li>'-->
-                <!--insertText +=       '</ul>'-->
-                <!--insertText +=       '<div class="clearfix"></div>'-->
-                <!--insertText +=   '</div>'-->
-                <!--insertText +=   '<div class="x_content">'-->
-                <!--insertText +=   '<br />'-->
-                <!--insertText +=   '<div class="bs-example-popovers">'-->
-                <!--$.each(item.subSymptomTypes,function (index,subitem) {-->
-                    <!--console.log(index)-->
-                    <!--insertText +=       '<button type="button" class="btn btn-default" data-container="body" data-toggle="popover" data-placement="left" data-content="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." data-original-title="" title="">'-->
-                    <!--insertText +=       subitem.tname-->
-                    <!--insertText +=       '</button>'-->
-                <!--})-->
-                <!--insertText +=   '</div><br />'-->
-                <!--insertText +=   '<div class="ln_solid"></div>'-->
-                <!--insertText +=   '<div class="input-group">'-->
-                <!--insertText +=       '<input type="text" class="form-control" uperId="'+item.tid+'">'-->
-                <!--insertText +=       '<span class="input-group-btn">'-->
-                <!--insertText +=       '<button type="button" class="btn btn-primary"  >添加小类</button></span>'-->
-                <!--insertText +=    '</div>'-->
-                <!--insertText +=   '</div>'-->
-                <!--insertText += '</div>'-->
-                <!--insertText += '</div>'-->
-
-            <!--})-->
-
-            <!--$('#typeList').html(insertText);-->
-            <!--//console.log('success');-->
-            <!--bindClick()-->
-            <!--bindClickDelte()-->
-        <!--}-->
-    <!--});-->
-
-<!--</script>-->
-
-<!--添加大类-->
 <script>
-    $('#addType').click(function() {
+    //模态框
+    $('#myModal').on('shown.bs.modal', function () {
+        $('#myInput').focus()
+    })
+</script>
+
+<script>
+    var symptomData
+    var subSymptomData
+
+    $.ajax({
+        type : "get", //请求方式
+        url : "/api/symptom", //发送请求地址
+//            data : {
+//                productId:productId,
+//                //发送给数据库的数据
+//            },
+        //请求成功后的回调函数有两个参数
+        success : function(data, textStatus) {
+            symptomData = data;
+            var insertText = "";
+
+            $.each(data, function (index, item) {
+                insertText += '<a href="#" class="findSubClass" fid="'+item.tid+'">'
+                insertText +=   '<div class="mail_list">'
+                insertText +=   '<br />'
+                insertText +=       '<div class="left">'
+                insertText +=           '<i class="fa fa-star"></i>'
+                insertText +=       '</div>'
+                insertText +=       '<div class="right">'
+                insertText +=           '<strong>'+item.tname+'</strong>'
+                insertText +=           '<button type="button" class="btn btn-danger btn-sm" style="float:right" classId="'+item.tid+'">删除此类</button>'
+                insertText +=       '</div>'
+                insertText +=       '<br /><br />'
+                insertText +=   '</div>'
+                insertText += '</a>'
+                insertText += '<br /><br />'
+
+            })
+            $('#rootClass').html(insertText);
+
+            //console.log('success');
+            findSubClass()
+//            bindClick()
+//            bindClickDelte()
+        }
+    });
+
+//展示子类
+    function findSubClass() {
+        $('.findSubClass').click(function() {
+            var fid = $(this).attr('fid')
+            var insertText = ""
+            $.each(symptomData,function (index,item) {
+                if(item.tid == fid){
+                    $.each(item.subSymptomTypes,function (index,subItem) {
+                        insertText += '<a href="#" class="findThirdClass" fid="'+subItem.tid+'" rootId="'+fid+'">'
+                        insertText +=   '<div class="mail_list">'
+                        insertText +=   '<br />'
+                        insertText +=       '<div class="left">'
+                        insertText +=           '<i class="fa fa-star"></i>'
+                        insertText +=       '</div>'
+                        insertText +=       '<div class="right">'
+                        insertText +=           '<strong>'+subItem.tname+'</strong>'
+                        insertText +=           '<button type="button" class="btn btn-danger btn-sm" style="float:right" classId="'+subItem.tid+'">删除此类</button>'
+                        insertText +=       '</div>'
+                        insertText +=       '<br /><br />'
+                        insertText +=   '</div>'
+                        insertText += '</a>'
+                        insertText += '<br /><br />'
+                    })
+                    $('#secondClass').html(insertText)
+                    findThirdClass()
+                }
+
+            })
+
+
+        })
+    }
+
+    //展示第三子类
+    function findThirdClass() {
+        $('.findThirdClass').click(function() {
+            var fid = $(this).attr('fid')
+            var rootId = $(this).attr('rootId')
+            var insertText = ""
+            $.each(symptomData,function (index,item) {
+                if(item.tid == rootId){
+                    $.each(item.subSymptomTypes,function (index,subItem) {
+                        if(subItem.tid == fid){
+                            $.each(subItem.subSymptomTypes,function (index,thirdItem) {
+                                insertText += '<a href="#">'
+                                insertText +=   '<div class="mail_list">'
+                                insertText +=   '<br />'
+                                insertText +=       '<div class="left">'
+                                insertText +=           '<i class="fa fa-star"></i>'
+                                insertText +=       '</div>'
+                                insertText +=       '<div class="right">'
+                                insertText +=           '<strong>'+thirdItem.tname+'</strong>'
+                                insertText +=           '<button type="button" class="btn btn-danger btn-sm" style="float:right" classId="'+thirdItem.tid+'">删除此类</button>'
+                                insertText +=       '</div>'
+                                insertText +=       '<br /><br />'
+                                insertText +=   '</div>'
+                                insertText += '</a>'
+                                insertText += '<br /><br />'
+
+                            })
+                            $('#thirdClass').html(insertText)
+                        }
+
+                    })
+                }
+
+            })
+
+
+        })
+    }
+
+    findSubClass()
+    findThirdClass()
+
+</script>
+
+
+<!--添加rootclass-->
+<script>
+    $('#addFirstClass').click(function() {
         var typeName = $('#typeName').val();
+        alert(typeName)
         $.ajax({
             type : "post",
             url : "/api/symptom",
@@ -276,6 +266,7 @@
                 tname : typeName,
             },
             success: function (data,textStatus) {
+                alert(data)
                 location.reload()
             }
         })
