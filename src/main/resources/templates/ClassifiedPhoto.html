@@ -69,40 +69,26 @@
                                 <div class="form-group">
                                     <label class="control-label col-md-1 col-sm-1 col-xs-12">选择类别</label>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <select class="form-control">
-                                            <option>Choose option</option>
-                                            <option>Option one</option>
-                                            <option>Option two</option>
-                                            <option>Option three</option>
-                                            <option>Option four</option>
+                                        <select class="form-control" id="rootClassSelect">
                                         </select>
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <select class="form-control">
-                                            <option>Choose option</option>
-                                            <option>Option one</option>
-                                            <option>Option two</option>
-                                            <option>Option three</option>
-                                            <option>Option four</option>
+                                        <select class="form-control" id="secondClassSelect">
                                         </select>
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <select class="form-control">
-                                            <option>Choose option</option>
-                                            <option>Option one</option>
-                                            <option>Option two</option>
-                                            <option>Option three</option>
-                                            <option>Option four</option>
+                                        <select class="form-control" id="thirdClassSelect">
                                         </select>
                                     </div>
                                     <div class="col-md-2 col-sm-2 col-xs-12">
-                                        <button type="button" class="btn btn-success btn-sm">筛选照片</button>
+                                        <button type="button" class="btn btn-success btn-sm" id="filter">筛选照片</button>
                                     </div>
                                 </div>
                                 <br/><br/>
                                 <div class="ln_solid"></div>
 
                                 <div class="row" id="photoList">
+
                                 </div>
 
                             </div>
@@ -125,32 +111,115 @@
 <!-- jQuery -->
 <script src="/js/jquery.min.js"></script>
 
-<!--<script>-->
-    <!--$.ajax({-->
-        <!--type : "get",-->
-        <!--url : "/api/photo/notreplied",-->
-        <!--success : function(data, textStatus) {-->
-            <!--var insertText = "";-->
-            <!--$.each(data, function (index, item) {-->
-                <!--insertText += '<div class="col-md-55">'-->
-                <!--insertText +=   '<div class="thumbnail">'-->
-                <!--insertText +=     '<div class="image view view-first">'-->
-                <!--insertText +=       '<a  class="photoDetail"  href="/photoDetail/'+item.pid+'"><img style="width: 100%; display: block;" src="'+item.position+'" alt="image" /></a>'-->
-                <!--insertText +=     '</div>'-->
-                <!--insertText +=     '<div class="caption">'-->
-                <!--insertText +=       '<p>时段：'+item.time+'</p>'-->
-                <!--insertText +=     '</div>'-->
-                <!--insertText +=   '</div>'-->
-                <!--insertText += '</div>'-->
+<!--获取分类信息-->
+<script>
+    //ajax获取分类信息
+    var symptoms
+    var subSymptoms
+    $.ajax({
+        type : "get",
+        url : "/api/symptom/",
+        success : function(data, textStatus) {
+            insertText = ""
+            insertText +=   '<option>'
+            insertText +=       '请选择分类'
+            insertText +=   '</option>'
+            symptoms = data
+            $.each(data,function (index,item) {
+                insertText += '<option tagId="'+item.tid+'">'
+                insertText +=   item.tname
+                insertText += '</option>'
+            })
 
-            <!--})-->
-            <!--$('#photoList').html(insertText);-->
+            $('#rootClassSelect').html(insertText)
+            bindChoose()
+        }
 
-        <!--}-->
 
-    <!--})-->
+    })
 
-<!--</script>-->
+    //根分类下拉框监听
+    function bindChoose() {
+        $('#rootClassSelect').change(function(){
+            var selectedTag = $(this).find("option:selected").attr('tagId')
+            $.each(symptoms,function (index,item) {
+                if(item.tid == selectedTag){
+                    subSymptoms = item
+                    insertText = ""
+                    insertText +=   '<option>'
+                    insertText +=       '请选择分类'
+                    insertText +=   '</option>'
+                    $.each(item.subSymptomTypes,function (index,subItems){
+                        insertText += '<option tagId="'+subItems.tid+'">'
+                        insertText +=   subItems.tname
+                        insertText += '</option>'
+                    })
+
+                }
+            })
+            $('#secondClassSelect').html(insertText)
+            bindSubChoose()
+        })
+    }
+    //二级分类下拉框监听
+    function bindSubChoose() {
+        $('#secondClassSelect').change(function(){
+            var selectedTag = $(this).find("option:selected").attr('tagId')
+            //alert(selectedTag);
+            $.each(subSymptoms.subSymptomTypes,function (index,item) {
+                if(item.tid == selectedTag){
+                    insertText = ""
+                    insertText +=   '<option>'
+                    insertText +=       '请选择分类'
+                    insertText +=   '</option>'
+                    $.each(item.subSymptomTypes,function (index,subItems){
+                        insertText += '<option tagId="'+subItems.tid+'">'
+                        insertText +=   subItems.tname
+                        insertText += '</option>'
+                    })
+                    $('#thirdClassSelect').html(insertText)
+
+                }
+
+            })
+        })
+    }
+
+    //筛选照片
+    $('#filter').click(function () {
+        var selectedTagId = $('#thirdClassSelect').find("option:selected").attr('tagId')
+
+        $.ajax({
+            type : "get",
+            url : "api/photo/tid/"+selectedTagId,
+            success : function(data, textStatus) {
+                var insertText = "";
+                $.each(data, function (index, item) {
+                    insertText += '<div class="col-md-55">'
+                    insertText +=   '<div class="thumbnail">'
+                    insertText +=     '<div class="image view view-first">'
+                    insertText +=       '<a  class="photoDetail"  href="/photoDetail/'+item.pid+'"><img style="width: 100%; display: block;" src="'+'http://101.132.153.126:8080/shetai/shetai_image/'+item.positions[0]+'" alt="image" /></a>'
+                    insertText +=     '</div>'
+                    insertText +=     '<div class="caption">'
+                    insertText +=       '<p>时段：'+item.time+'</p>'
+                    insertText +=     '</div>'
+                    insertText +=   '</div>'
+                    insertText += '</div>'
+
+                })
+                $('#photoList').html(insertText);
+
+            }
+
+        })
+    })
+
+
+    bindChoose()
+    bindSubChoose()
+
+
+</script>
 
 <!-- Bootstrap -->
 <script src="/bootstrap/dist/js/bootstrap.min.js"></script>

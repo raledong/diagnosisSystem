@@ -71,7 +71,7 @@ public class Photo {
     }
 
     public String[] getTids(){
-        return tid==null ? new String[0] : tid.split(",");
+        return tid==null||tid.isEmpty() ? new String[0] : tid.split(",");
     }
     public void setTid(String tid) {
         this.tid = tid;
@@ -96,7 +96,7 @@ public class Photo {
         if (tid.isEmpty()){
             this.tid = this.tid.concat(tid);
         }else{
-            this.tid = this.tid + "," + this.tid;
+            this.tid = this.tid + "," + tid;
         }
     }
 

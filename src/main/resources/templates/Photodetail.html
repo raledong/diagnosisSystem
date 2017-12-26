@@ -277,6 +277,9 @@
           url : "/api/symptom/",
           success : function(data, textStatus) {
               insertText = ""
+              insertText +=   '<option>'
+              insertText +=       '请选择分类'
+              insertText +=   '</option>'
               symptoms = data
               $.each(data,function (index,item) {
                   insertText += '<option tagId="'+item.tid+'">'
@@ -298,6 +301,9 @@
                     if(item.tid == selectedTag){
                         subSymptoms = item
                         insertText = ""
+                        insertText +=   '<option>'
+                        insertText +=       '请选择分类'
+                        insertText +=   '</option>'
                         $.each(item.subSymptomTypes,function (index,subItems){
                             insertText += '<option tagId="'+subItems.tid+'">'
                             insertText +=   subItems.tname
@@ -318,6 +324,9 @@
                 $.each(subSymptoms.subSymptomTypes,function (index,item) {
                     if(item.tid == selectedTag){
                         insertText = ""
+                        insertText +=   '<option>'
+                        insertText +=       '请选择分类'
+                        insertText +=   '</option>'
                         $.each(item.subSymptomTypes,function (index,subItems){
                             insertText += '<option tagId="'+subItems.tid+'">'
                             insertText +=   subItems.tname
@@ -335,7 +344,9 @@
         $('#submitSelect').click(function(){
             var selectedTagId = $('#thirdClassSelect').find("option:selected").attr('tagId')
             var selectUrl = "/api/photo/"+photoId
-            //alert(photoId)
+
+            alert(photoId +"分界线"+selectedTagId)
+
             $.ajax({
                 type : "put",
                 url : selectUrl,
@@ -352,7 +363,7 @@
         //提交回复
       $('#submitReplay').click(function () {
           var text = $('#message').val()
-          alert(text+photoId)
+          //alert(text+photoId)
           $.ajax({
               type : "post",
               url : "/api/message",
