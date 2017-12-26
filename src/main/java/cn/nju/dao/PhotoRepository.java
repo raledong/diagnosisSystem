@@ -22,11 +22,23 @@ public interface PhotoRepository extends CrudRepository<Photo, String> {
     List<Photo> findAllByDidAndTidIsNull(String did);
 
     /**
+     * 获得所有未回复的照片
+     * @return
+     */
+    List<Photo> findAllByTidIsNull();
+
+    /**
      * 获得编号为did的医生的所有的已经回复的照片
      * @param did
      * @return
      */
     List<Photo> findAllByDidAndTidIsNotNull(String did);
+
+    /**
+     * 获得已经回复的所有照片
+     * @return
+     */
+    List<Photo> findAllByTidIsNotNull();
 
     /**
      * 计算当前标签下的照片数量

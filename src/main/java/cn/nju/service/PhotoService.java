@@ -20,6 +20,7 @@ public interface PhotoService {
      * @return
      */
     List<PhotoDetailVO> findAllPhotos(String did);
+    List<PhotoDetailVO> findAllPhotos();
 
     /**
      * 获得提交给编号为did的医生的所有已经回复的照片
@@ -27,6 +28,7 @@ public interface PhotoService {
      * @return
      */
     List<PhotoDetailVO> findRepliedPhotos(String did);
+    List<PhotoDetailVO> findRepliedPhotos();
 
     /**
      * 获得提交给编号为did的医生的所有尚未回复的照片
@@ -34,6 +36,7 @@ public interface PhotoService {
      * @return
      */
     List<PhotoDetailVO> findUnrepliedPhotos(String did);
+    List<PhotoDetailVO> findUnrepliedPhotos();
 
     /**
      * 更改照片的舌苔类别分类

@@ -24,9 +24,9 @@ public class PhotoController {
      */
     @GetMapping()
     public @ResponseBody List<PhotoDetailVO> all(Authentication authentication){
-        UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
-        String did = userDetails.getUserId();
-        return photoService.findAllPhotos(did);
+//        UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
+//        String did = userDetails.getUserId();
+        return photoService.findAllPhotos();
     }
 
     /**
@@ -34,9 +34,9 @@ public class PhotoController {
      */
     @GetMapping("/replied")
     public @ResponseBody List<PhotoDetailVO> getRepliedPhotos(Authentication authentication){
-        UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
-        String did = userDetails.getUserId();
-        return photoService.findRepliedPhotos(did);
+//        UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
+//        String did = userDetails.getUserId();
+        return photoService.findRepliedPhotos();
     }
 
     /**
@@ -46,7 +46,7 @@ public class PhotoController {
     public @ResponseBody List<PhotoDetailVO> getNotRepliedPhotos(Authentication authentication){
         UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
         String did = userDetails.getUserId();
-        return photoService.findUnrepliedPhotos(did);
+        return photoService.findUnrepliedPhotos();
     }
 
     /**

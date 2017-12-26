@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -38,15 +39,37 @@ public class PhotoServiceImpl implements PhotoService{
     }
 
     @Override
+    public List<PhotoDetailVO> findAllPhotos(){
+        Iterable<Photo> photoIterable = photoRepository.findAll();
+        List<PhotoDetailVO> photoDetailVOS = new ArrayList<>();
+        Iterator<Photo> iterator = photoIterable.iterator();
+        while (iterator.hasNext()){
+            PhotoDetailVO photoDetailVO = new PhotoDetailVO(iterator.next());
+            photoDetailVOS.add(photoDetailVO);
+        }
+        return photoDetailVOS;
+    }
+    @Override
     public List<PhotoDetailVO> findRepliedPhotos(String did) {
         List<Photo> photos = photoRepository.findAllByDidAndTidIsNotNull(did);
         return wrapPhotoToPhotoDetailVO(photos);
     }
 
     @Override
+    public List<PhotoDetailVO> findRepliedPhotos() {
+        List<Photo> photos = photoRepository.findAllByTidIsNotNull();
+        return wrapPhotoToPhotoDetailVO(photos);
+    }
+
+    @Override
     public List<PhotoDetailVO> findUnrepliedPhotos(String did) {
         List<Photo> photos = photoRepository.findAllByDidAndTidIsNull(did);
-        System.out.println(photos.size());
+        return wrapPhotoToPhotoDetailVO(photos);
+    }
+
+    @Override
+    public List<PhotoDetailVO> findUnrepliedPhotos() {
+        List<Photo> photos = photoRepository.findAllByTidIsNull();
         return wrapPhotoToPhotoDetailVO(photos);
     }
 
