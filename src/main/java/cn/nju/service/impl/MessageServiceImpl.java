@@ -2,8 +2,10 @@ package cn.nju.service.impl;
 
 import cn.nju.common.UUIDGenerator;
 import cn.nju.dao.MessageRepository;
+import cn.nju.dao.PhotoRepository;
 import cn.nju.dao.UserRepository;
 import cn.nju.model.Message;
+import cn.nju.model.Photo;
 import cn.nju.model.User;
 import cn.nju.service.MessageService;
 import cn.nju.vo.MessageVO;
@@ -23,17 +25,25 @@ public class MessageServiceImpl implements MessageService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PhotoRepository photoRepository;
+
     @Override
     public List<MessageVO> findAllByPhotoId(String pid) {
         List<Message> messages = messageRepository.findAllByPidOrderByTime(pid);
         return wrapMessageToMessageVO(messages);
     }
 
+
     @Override
     public boolean addMessage(String senderId, String info, String pid) {
+        Photo photo = photoRepository.findOne(pid);
+        String receiverId = photo.getUid();
+
         Message message = new Message();
         message.setMid(UUIDGenerator.getShortUUID());
         message.setSenderId(senderId);
+        message.setReceiveId(receiverId);
         message.setPid(pid);
         message.setContent(info);
         messageRepository.save(message);
