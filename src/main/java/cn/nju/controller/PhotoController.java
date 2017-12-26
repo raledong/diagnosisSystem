@@ -60,19 +60,6 @@ public class PhotoController {
     }
 
 
-//    @Todo 添加标签
-    /**
-     * 更换照片的分类
-     * @param pid
-     * @param tid
-     * @return
-     */
-    @Deprecated
-    @PutMapping("/{id}")
-    public @ResponseBody
-    RequestStatus updatePhotoSymptom(@PathVariable("id")String pid,  String tid){
-        return photoService.changeSymptom(pid, tid) ? RequestStatus.SUCCESS : RequestStatus.FAIL;
-    }
 
     /**
      * 添加照片的分类
@@ -88,13 +75,12 @@ public class PhotoController {
 
     /**
      * 根据分类获取照片
-     * URL格式为 /api/photo?tid=***
      * @param tid
      * @return
      */
-    @GetMapping
+    @GetMapping("/tid/{id}")
     public @ResponseBody
-    List<PhotoDetailVO> getPhotosBySymptomType(@RequestParam("tid") String tid){
+    List<PhotoDetailVO> getPhotosBySymptomType(@PathVariable("id") String tid){
         return photoService.findPhotosBySymptomType(tid);
     }
 
