@@ -68,19 +68,19 @@
                             <div class="x_content">
                                 <div class="row">
                                     <div class="col-sm-4 mail_list_column" >
-                                        <button class="btn btn-sm btn-success btn-block" type="button" data-toggle="modal" data-target="#myModal">增加一级类目</button>
+                                        <button class="btn btn-sm btn-success btn-block" type="button" data-toggle="modal" data-target="#rootModal">增加一级类目</button>
                                         <div id="rootClass">
                                         </div>
                                     </div>
                                     <!-- /MAIL LIST -->
                                     <div class="col-sm-4 mail_list_column">
-                                        <button id="addSecondClass" class="btn btn-sm btn-success btn-block" type="button"  >增加二级类目</button>
+                                        <button  class="btn btn-sm btn-success btn-block" type="button" data-toggle="modal" data-target="#secondModal" >增加二级类目</button>
                                         <div id="secondClass">
                                         </div>
                                     </div>
                                     <!-- /MAIL LIST -->
                                     <div class="col-sm-4 mail_list_column">
-                                        <button id="addThirdClass" class="btn btn-sm btn-success btn-block" type="button">增加三级类目</button>
+                                        <button class="btn btn-sm btn-success btn-block" type="button" data-toggle="modal" data-target="#thirdModal">增加三级类目</button>
                                         <div id="thirdClass">
                                         </div>
                                     </div>
@@ -105,8 +105,8 @@
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!-- 添加根分类Modal -->
+<div class="modal fade" id="rootModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -123,7 +123,43 @@
         </div>
     </div>
 </div>
+<!-- 添加二级分类Modal -->
+<div class="modal fade" id="secondModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加二级分类</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text"  id="secondTypeName" required="required" class="form-control col-md-7 col-xs-12">
+            </div>
+            <br/><br/><br/>
+            <div class="modal-footer">
+                <button type="button" id="addSecondClass" class="btn btn-primary">添加</button>
+            </div>
+        </div>
+    </div>
+</div>
 
+<!-- 添加三级分类Modal -->
+<div class="modal fade" id="thirdModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">添加三级分类</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text"  id="thirdTypeName" required="required" class="form-control col-md-7 col-xs-12">
+            </div>
+            <br/><br/><br/>
+            <div class="modal-footer">
+                <button type="button" id="addThirdClass" class="btn btn-primary">添加</button>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- jQuery -->
 <script src="/js/jquery.min.js"></script>
 
@@ -137,6 +173,8 @@
 <script>
     var symptomData
     var subSymptomData
+    var currentRootType
+    var currentSubType
 
     $.ajax({
         type : "get", //请求方式
@@ -183,6 +221,7 @@
             var insertText = ""
             $.each(symptomData,function (index,item) {
                 if(item.tid == fid){
+                    currentRootType = fid
                     $.each(item.subSymptomTypes,function (index,subItem) {
                         insertText += '<a href="#" class="findThirdClass" fid="'+subItem.tid+'" rootId="'+fid+'">'
                         insertText +=   '<div class="mail_list">'
@@ -201,6 +240,7 @@
                     })
                     $('#secondClass').html(insertText)
                     findThirdClass()
+                    bindClickDelte()
                 }
 
             })
@@ -219,6 +259,7 @@
                 if(item.tid == rootId){
                     $.each(item.subSymptomTypes,function (index,subItem) {
                         if(subItem.tid == fid){
+                            currentSubType = fid
                             $.each(subItem.subSymptomTypes,function (index,thirdItem) {
                                 insertText += '<a href="#">'
                                 insertText +=   '<div class="mail_list">'
@@ -275,19 +316,43 @@
 </script>
 
 
-<!--添加小类-->
+<!--添加二级分类-->
 <script>
-    function bindClick() {
-        $('.btn.btn-primary').click(function() {
-            var subTypeName = $(this).parent(this).prev().val()
-            var uperId = $(this).parent(this).prev().attr('uperId')
-//                alert(subTypeName)
+        $('#addSecondClass').click(function() {
+            var secondTypeName = $('#secondTypeName').val()
+            var uperId = currentRootType
 
+            if(uperId != null){
+                $.ajax({
+                    type : "post",
+                    url : "/api/symptom/sub",
+                    data : {
+                        tname : secondTypeName,
+                        uperId : uperId,
+
+                    },
+                    success: function (data,textStatus) {
+                        location.reload()
+                    }
+                })
+            }else{
+                alert('请先选择父类')
+            }
+        });
+
+</script>
+<!--添加三级分类-->
+<script>
+    $('#addThirdClass').click(function() {
+        var thirdTypeName = $('#thirdTypeName').val()
+        var uperId = currentSubType
+
+        if(uperId != null){
             $.ajax({
                 type : "post",
                 url : "/api/symptom/sub",
                 data : {
-                    tname : subTypeName,
+                    tname : thirdTypeName,
                     uperId : uperId,
 
                 },
@@ -295,27 +360,20 @@
                     location.reload()
                 }
             })
-        });
-    }
-    bindClick()
+        }else{
+            alert("请先选择父类！")
+        }
+
+
+    });
 
 </script>
 
 <!--删除大类-->
 <script>
     function bindClickDelte() {
-        $('.close-link').click(function () {
-            var deleteUrl = "/api/symptom/"+$(this).attr('tagId')
-//                alert(deleteUrl)
+        $('.btn.btn-danger.btn-sm').click(function () {
 
-            $.ajax({
-                type : "delete",
-                url : deleteUrl,
-                success : function(data, textStatus) {
-                    location.reload()
-                }
-
-            })
         })
     }
     bindClickDelte()

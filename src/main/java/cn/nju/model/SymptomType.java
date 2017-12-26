@@ -27,7 +27,7 @@ public class SymptomType {
 
     public SymptomType(SymptomTypeVO symptomTypeVO){
         this.setTid(symptomTypeVO.getTid());
-        this.setUperId(null);
+        this.setUperId(symptomTypeVO.getUperId());
         this.setTname(symptomTypeVO.getTname());
         this.setDescription(symptomTypeVO.getDescription());
     }
@@ -48,7 +48,7 @@ public class SymptomType {
     }
 
     public void setUperId(String uperId) {
-        this.uperId = uperId;
+        this.uperId = uperId==null||uperId.isEmpty()?null : uperId;
     }
 
     public String getTname() {
