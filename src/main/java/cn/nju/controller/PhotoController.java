@@ -44,8 +44,8 @@ public class PhotoController {
      */
     @GetMapping("/notreplied")
     public @ResponseBody List<PhotoDetailVO> getNotRepliedPhotos(Authentication authentication){
-        UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
-        String did = userDetails.getUserId();
+//        UserDetails userDetails  = (UserDetails) authentication.getPrincipal();
+//        String did = userDetails.getUserId();
         return photoService.findUnrepliedPhotos();
     }
 
@@ -60,15 +60,31 @@ public class PhotoController {
     }
 
 
+//    @Todo 添加标签
     /**
-     * 更新照片的分类
+     * 更换照片的分类
+     * @param pid
+     * @param tid
+     * @return
+     */
+    @Deprecated
+    @PutMapping("/{id}")
+    public @ResponseBody
+    RequestStatus updatePhotoSymptom(@PathVariable("id")String pid,  String tid){
+        return photoService.changeSymptom(pid, tid) ? RequestStatus.SUCCESS : RequestStatus.FAIL;
+    }
+
+    /**
+     * 添加照片的分类
      * @param pid
      * @param tid
      * @return
      */
     @PutMapping("/{id}")
     public @ResponseBody
-    RequestStatus updatePhotoSymptom(@PathVariable("id")String pid,  String tid){
-        return photoService.changeSymptom(pid, tid) ? RequestStatus.SUCCESS : RequestStatus.FAIL;
+    RequestStatus addPhotoSymptom(@PathVariable("id")String pid, String tid){
+        return photoService.addSymptomType(pid, tid) ? RequestStatus.SUCCESS : RequestStatus.FAIL;
     }
+
+
 }

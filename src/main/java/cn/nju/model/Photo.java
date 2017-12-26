@@ -77,6 +77,29 @@ public class Photo {
         this.tid = tid;
     }
 
+    public void setTid(String[] tid){
+        if (tid!=null && tid.length > 0){
+            for (String curTid : tid){
+                this.tid += curTid;
+                this.tid += ",";
+            }
+            this.tid = this.tid.substring(0, this.tid.length() - 1);
+        }
+    }
+
+    public void deleteTid(String tid){
+        int index = this.tid.indexOf(tid);
+        this.tid = tid.substring(index, (index + tid.length()+1));
+    }
+
+    public void addTid(String tid){
+        if (tid.isEmpty()){
+            this.tid = this.tid.concat(tid);
+        }else{
+            this.tid = this.tid + "," + this.tid;
+        }
+    }
+
     public String getPosition() {
         return position;
     }

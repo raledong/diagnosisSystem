@@ -45,4 +45,20 @@ public interface PhotoService {
      * @return
      */
     boolean changeSymptom(String pid, String tid);
+
+    /**
+     * 添加一个分类标签
+     * @param pid
+     * @param tid
+     * @return
+     */
+    boolean addSymptomType(String pid, String tid);
+
+    /**
+     * 删除一个分类标签
+     * @param pid
+     * @param tid
+     * @return
+     */
+    boolean deleteSymptomType(String pid, String tid);
 }
