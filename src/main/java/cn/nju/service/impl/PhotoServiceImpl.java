@@ -33,6 +33,12 @@ public class PhotoServiceImpl implements PhotoService{
     }
 
     @Override
+    public List<PhotoDetailVO> findPhotosBySymptomType(String tid) {
+        List<Photo> photos = photoRepository.findAllByTidIsContaining(tid);
+        return wrapPhotoToPhotoDetailVO(photos);
+    }
+
+    @Override
     public List<PhotoDetailVO> findAllPhotos(String did) {
         List<Photo> photos = photoRepository.findAllByDidOrderByTime(did);
         return wrapPhotoToPhotoDetailVO(photos);
@@ -81,6 +87,24 @@ public class PhotoServiceImpl implements PhotoService{
         photo.setTid(tid);
         photoRepository.save(photo);
         return true;
+    }
+
+    @Override
+    public boolean addSymptomType(String pid, String tid) {
+        Photo photo = photoRepository.findOne(pid);
+        if (photo==null) return false;
+        photo.addTid(tid);
+        photoRepository.save(photo);
+        return true;
+    }
+
+    @Override
+    public boolean deleteSymptomType(String pid, String tid) {
+        Photo photo = photoRepository.findOne(pid);
+        if (photo == null) return false;
+        photo.deleteTid(tid);
+        photoRepository.save(photo);
+        return false;
     }
 
     private PhotoDetailVO wrapPhotoToPhotoDetailVO(Photo photo){
