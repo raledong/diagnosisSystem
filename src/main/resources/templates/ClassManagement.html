@@ -193,11 +193,11 @@
                 insertText +=   '<div class="mail_list">'
                 insertText +=   '<br />'
                 insertText +=       '<div class="left">'
-                insertText +=           '<i class="fa fa-star"></i>'
+//                insertText +=           '<i class="fa fa-star"></i>'
                 insertText +=       '</div>'
                 insertText +=       '<div class="right">'
                 insertText +=           '<strong>'+item.tname+'</strong>'
-                insertText +=           '<button type="button" class="btn btn-danger btn-sm" style="float:right" classId="'+item.tid+'">删除此类</button>'
+                insertText +=           '<button type="button" class="btn btn-danger btn-sm" style="float:right" fClass="root" classId="'+item.tid+'">删除此类</button>'
                 insertText +=       '</div>'
                 insertText +=       '<br /><br />'
                 insertText +=   '</div>'
@@ -209,6 +209,7 @@
 
             //console.log('success');
             findSubClass()
+            bindClickDelte()
 //            bindClick()
 //            bindClickDelte()
         }
@@ -218,6 +219,10 @@
     function findSubClass() {
         $('.findSubClass').click(function() {
             var fid = $(this).attr('fid')
+            insertStar = '<i class="fa fa-star"></i>'
+            var starNode =  $(this).children().children('.left')
+            starNode.html(insertStar)
+
             var insertText = ""
             $.each(symptomData,function (index,item) {
                 if(item.tid == fid){
@@ -227,11 +232,11 @@
                         insertText +=   '<div class="mail_list">'
                         insertText +=   '<br />'
                         insertText +=       '<div class="left">'
-                        insertText +=           '<i class="fa fa-star"></i>'
+//                        insertText +=           '<i class="fa fa-star"></i>'
                         insertText +=       '</div>'
                         insertText +=       '<div class="right">'
                         insertText +=           '<strong>'+subItem.tname+'</strong>'
-                        insertText +=           '<button type="button" class="btn btn-danger btn-sm" style="float:right" classId="'+subItem.tid+'">删除此类</button>'
+                        insertText +=           '<button type="button" class="btn btn-danger btn-sm" style="float:right" fClass="sub" classId="'+subItem.tid+'">删除此类</button>'
                         insertText +=       '</div>'
                         insertText +=       '<br /><br />'
                         insertText +=   '</div>'
@@ -252,6 +257,10 @@
     //展示第三子类
     function findThirdClass() {
         $('.findThirdClass').click(function() {
+            insertStar = '<i class="fa fa-star"></i>'
+            var starNode =  $(this).children().children('.left')
+            starNode.html(insertStar)
+
             var fid = $(this).attr('fid')
             var rootId = $(this).attr('rootId')
             var insertText = ""
@@ -265,11 +274,11 @@
                                 insertText +=   '<div class="mail_list">'
                                 insertText +=   '<br />'
                                 insertText +=       '<div class="left">'
-                                insertText +=           '<i class="fa fa-star"></i>'
+//                                insertText +=           '<i class="fa fa-star"></i>'
                                 insertText +=       '</div>'
                                 insertText +=       '<div class="right">'
                                 insertText +=           '<strong>'+thirdItem.tname+'</strong>'
-                                insertText +=           '<button type="button" class="btn btn-danger btn-sm" style="float:right" classId="'+thirdItem.tid+'">删除此类</button>'
+                                insertText +=           '<button type="button" class="btn btn-danger btn-sm" style="float:right" fClass="sub" classId="'+thirdItem.tid+'">删除此类</button>'
                                 insertText +=       '</div>'
                                 insertText +=       '<br /><br />'
                                 insertText +=   '</div>'
@@ -278,6 +287,7 @@
 
                             })
                             $('#thirdClass').html(insertText)
+                            bindClickDelte()
                         }
 
                     })
@@ -369,10 +379,32 @@
 
 </script>
 
-<!--删除大类-->
+<!--删除父分类-->
 <script>
     function bindClickDelte() {
         $('.btn.btn-danger.btn-sm').click(function () {
+            var fClass = $(this).attr('fClass')
+            var deleteId = $(this).attr('classId')
+//            alert(fClass + "?"+ deleteId)
+            if(fClass == "root"){
+                $.ajax({
+                    type : "delete",
+                    url : "/api/symptom/"+deleteId,
+
+                    success :function (data,textStatus) {
+                        location.reload()
+                    }
+                })
+
+            }else{
+                $.ajax({
+                    type : "delete",
+                    url : "/api/symptom/sub/"+deleteId,
+                    success : function (data,textStatus) {
+                        location.reload()
+                    }
+                })
+            }
 
         })
     }
