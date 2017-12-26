@@ -69,6 +69,7 @@
 
                     <div class="col-md-7 col-sm-7 col-xs-12" id="photoImage">
                     </div>
+                    <br/><br/>
 
                     <div class="col-md-5 col-sm-5 col-xs-12" style="border:0px solid #e5e5e5;">
 
@@ -86,15 +87,23 @@
                             <div class="form-group">
                                 <label class="control-label col-md-3 col-sm-3 col-xs-12">二级分类</label>
                                 <div class="col-md-9 col-sm-9 col-xs-12" >
-                                  <select class="form-control" id="subClassSelect">
+                                  <select class="form-control" id="secondClassSelect">
                                   </select>
                                 </div>
                               </div>
                               <br />
-                              <br />
+                          <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">三级级分类</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12" >
+                              <select class="form-control" id="thirdClassSelect">
+                              </select>
+                            </div>
+                          </div>
+                          <br />
+                          <br />
                               <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-8">
-                                  <button class="btn btn-round btn-primary" type="reset" id="submitSelect">提交分类选择</button>
-                                </div>
+                                  <button class="btn btn-round btn-primary" type="reset" id="submitSelect">添加分类</button>
+                              </div>
                               
                       </form>
                       <div class="">
@@ -116,7 +125,8 @@
 
                     </div>
 
-
+                    <br />
+                    <br />
                     <div class="col-md-12">
                         <div class="x_panel">
                             <div class="x_title">
@@ -190,26 +200,40 @@
 //            插入照片
               var insertText = ""
               insertText += '<div class="product-image">'
-              insertText +=   '<img src="'+data.position+'" alt="..." />'
+              insertText +=   '<img id="mainPhoto" src="http://101.132.153.126:8080/shetai/shetai_image/'+data.positions[0]+'" alt="..." />'
+              insertText += '</div>'
+              insertText += '<div class="product_gallery">'
+              $.each(data.positions,function (index,item){
+                  insertText +=   '<a class="changePhoto" href="#">'
+                  insertText +=     '<img src="http://101.132.153.126:8080/shetai/shetai_image/'+item+'" alt="..." />'
+                  insertText +=   '</a>'
+
+              })
+
               insertText += '</div>'
               $('#photoImage').html(insertText);
+
+              changePhoto()
+
+
+
 //            插入已有标签
               insertText = ""
-              if(data.rootClassName != ""){
+              $.each(data.symptomTypeDetails,function (index,item){
                   insertText += '<li>'
                   insertText +=   '<button type="button" class="btn btn-default btn-xs">'
-                  insertText +=     data.rootClassName
+                  insertText +=     '一级分类：'+item.ppname+'二级分类：'+item.pname+'三级分类：'+item.tname
                   insertText +=   '</button>'
                   insertText += '</li>'
-              }
-              if (data.childClassName != ""){
-                  insertText += '<li>'
-                  insertText +=   '<button type="button" class="btn btn-default btn-xs">'
-                  insertText +=     data.childClassName
-                  insertText +=   '</button>'
-                  insertText += '</li>'
-              }
-
+              })
+//              if (data.childClassName != ""){
+//                  insertText += '<li>'
+//                  insertText +=   '<button type="button" class="btn btn-default btn-xs">'
+//                  insertText +=     data.childClassName
+//                  insertText +=   '</button>'
+//                  insertText += '</li>'
+//              }
+//
               $('#existTags').html(insertText);
 
 
@@ -281,7 +305,7 @@
 
                     }
                 })
-                $('#subClassSelect').html(insertText)
+                $('#secondClassSelect').html(insertText)
             })
         }
 
@@ -307,7 +331,7 @@
         //提交回复
       $('#submitReplay').click(function () {
           var text = $('#message').val()
-
+          alert(text+photoId)
           $.ajax({
               type : "post",
               url : "/api/message",
@@ -321,6 +345,17 @@
           })
       })
 
+      //切换照片
+        function changePhoto() {
+            $('.changePhoto').click(function(){
+                var src = $(this).children().attr('src')
+                //mainPhoto
+                $('#mainPhoto').attr('src',src)
+
+            })
+        }
+
+        changePhoto()
     </script>
 
 

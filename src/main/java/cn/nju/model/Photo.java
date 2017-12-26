@@ -71,7 +71,7 @@ public class Photo {
     }
 
     public String[] getTids(){
-        return tid.split(",");
+        return tid==null ? new String[0] : tid.split(",");
     }
     public void setTid(String tid) {
         this.tid = tid;
