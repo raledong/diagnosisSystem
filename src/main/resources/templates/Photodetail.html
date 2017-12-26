@@ -200,7 +200,7 @@
 //            插入照片
               var insertText = ""
               insertText += '<div class="product-image">'
-              insertText +=   '<img id="mainPhoto" src="http://101.132.153.126:8080/shetai/shetai_image/'+data.positions[0]+'" alt="..." />'
+              insertText +=   '<img id="mainPhoto" src="http://101.132.153.126:8080/shetai/shetai_image/'+data.positions[0]+'" alt="..."  style="height: 450px"/>'
               insertText += '</div>'
               insertText += '<div class="product_gallery">'
               $.each(data.positions,function (index,item){
@@ -333,9 +333,8 @@
 
         //添加分类
         $('#submitSelect').click(function(){
-            var selectedTagId = $('#subClassSelect').find("option:selected").attr('tagId')
+            var selectedTagId = $('#thirdClassSelect').find("option:selected").attr('tagId')
             var selectUrl = "/api/photo/"+photoId
-
             //alert(photoId)
             $.ajax({
                 type : "put",
