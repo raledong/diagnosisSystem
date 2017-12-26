@@ -41,6 +41,13 @@ public interface PhotoRepository extends CrudRepository<Photo, String> {
     List<Photo> findAllByTidIsNotNull();
 
     /**
+     * 根据分类标签获得打上该标签的所有照片
+     * @param tid
+     * @return
+     */
+    List<Photo> findAllByTidIsContaining(String tid);
+
+    /**
      * 计算当前标签下的照片数量
      * @param tid
      * @return

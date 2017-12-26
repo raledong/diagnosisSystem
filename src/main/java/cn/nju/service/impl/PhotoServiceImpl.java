@@ -33,6 +33,12 @@ public class PhotoServiceImpl implements PhotoService{
     }
 
     @Override
+    public List<PhotoDetailVO> findPhotosBySymptomType(String tid) {
+        List<Photo> photos = photoRepository.findAllByTidIsContaining(tid);
+        return wrapPhotoToPhotoDetailVO(photos);
+    }
+
+    @Override
     public List<PhotoDetailVO> findAllPhotos(String did) {
         List<Photo> photos = photoRepository.findAllByDidOrderByTime(did);
         return wrapPhotoToPhotoDetailVO(photos);

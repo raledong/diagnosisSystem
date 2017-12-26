@@ -15,6 +15,13 @@ public interface PhotoService {
     PhotoDetailVO findPhotoDetailById(String pid);
 
     /**
+     * 根据分类获得对应的照片
+     * @param tid
+     * @return
+     */
+    List<PhotoDetailVO> findPhotosBySymptomType(String tid);
+
+    /**
      * 获得提交给编号为did的医生的所有照片
      * @param did
      * @return
@@ -61,4 +68,5 @@ public interface PhotoService {
      * @return
      */
     boolean deleteSymptomType(String pid, String tid);
+
 }
