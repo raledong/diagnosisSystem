@@ -93,10 +93,10 @@ public class Photo {
     }
 
     public void addTid(String tid){
-        if (tid.isEmpty()){
-            this.tid = this.tid.concat(tid);
+        if (this.tid.isEmpty()){
+            this.tid += tid;
         }else{
-            this.tid = this.tid + "," + tid;
+            this.tid += "," + tid;
         }
     }
 
