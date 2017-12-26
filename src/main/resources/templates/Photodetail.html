@@ -271,6 +271,7 @@
 
       //ajax获取分类信息
         var symptoms
+        var subSymptoms
       $.ajax({
           type : "get",
           url : "/api/symptom/",
@@ -289,13 +290,13 @@
 
 
       })
-        //下拉框监听
+        //根分类下拉框监听
         function bindChoose() {
             $('#rootClassSelect').change(function(){
                 var selectedTag = $(this).find("option:selected").attr('tagId')
-
                 $.each(symptoms,function (index,item) {
                     if(item.tid == selectedTag){
+                        subSymptoms = item
                         insertText = ""
                         $.each(item.subSymptomTypes,function (index,subItems){
                             insertText += '<option tagId="'+subItems.tid+'">'
@@ -306,10 +307,31 @@
                     }
                 })
                 $('#secondClassSelect').html(insertText)
+                bindSubChoose()
+            })
+        }
+        //二级分类下拉框监听
+        function bindSubChoose() {
+            $('#secondClassSelect').change(function(){
+                var selectedTag = $(this).find("option:selected").attr('tagId')
+                //alert(selectedTag);
+                $.each(subSymptoms.subSymptomTypes,function (index,item) {
+                    if(item.tid == selectedTag){
+                        insertText = ""
+                        $.each(item.subSymptomTypes,function (index,subItems){
+                            insertText += '<option tagId="'+subItems.tid+'">'
+                            insertText +=   subItems.tname
+                            insertText += '</option>'
+                        })
+                        $('#thirdClassSelect').html(insertText)
+
+                    }
+
+                })
             })
         }
 
-        //提交分类
+        //添加分类
         $('#submitSelect').click(function(){
             var selectedTagId = $('#subClassSelect').find("option:selected").attr('tagId')
             var selectUrl = "/api/photo/"+photoId
