@@ -34,4 +34,9 @@ public class PhotoRepositoryTest {
         System.out.println(photoRepository.findAllByDidAndTidIsNotNull("1").size());
         System.out.println(photoRepository.findAllByDidAndTidIsNull("1").size());
     }
+
+    @Test
+    public void testUnreplied(){
+        photoRepository.findAllByTidIsNull();
+    }
 }

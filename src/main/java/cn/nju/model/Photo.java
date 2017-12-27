@@ -90,10 +90,14 @@ public class Photo {
     public void deleteTid(String tid){
         int index = this.tid.indexOf(tid);
         this.tid = tid.substring(index, (index + tid.length()+1));
+        if (this.tid.isEmpty()){
+            this.tid = null;
+        }
     }
 
     public void addTid(String tid){
-        if (this.tid.isEmpty()){
+        if (this.tid==null || this.tid.isEmpty()){
+            this.tid = "";
             this.tid += tid;
         }else{
             this.tid += "," + tid;
