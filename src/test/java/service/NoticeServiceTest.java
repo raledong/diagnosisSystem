@@ -24,7 +24,7 @@ public class NoticeServiceTest {
         noticeService.addNotice(noticeVO, "rd3LAPOQ");
     }
 
-    @Test
+//    @Test
     public void testFindAll(){
         System.out.println(noticeService.findAll().size());
     }

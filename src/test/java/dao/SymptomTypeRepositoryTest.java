@@ -22,10 +22,10 @@ public class SymptomTypeRepositoryTest {
         System.out.println(symptomTypeRepository.findByUperIdIsNull());
     }
 
-    @Test
-    public void testFindByName(){
-        System.out.println(symptomTypeRepository.findDistinctByTname("test tag").getTid());
-    }
+//    @Test
+//    public void testFindByName(){
+//        System.out.println(symptomTypeRepository.findDistinctByTname("test tag").getTid());
+//    }
 
     @Test
     public void testAddSubSymptoms(){

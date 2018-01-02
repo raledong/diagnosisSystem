@@ -44,10 +44,10 @@ public class UserRepositoryTest {
         user.setType(1);
         userRepository.save(user);
     }
-    @Test
-    public void testFind(){
-        User user = userRepository.findDistinctByUnameAndPasswdAndType("rale", "hello", 1);
-        System.out.println(user.getMedicalHistory());
-    }
+//    @Test
+//    public void testFind(){
+//        User user = userRepository.findDistinctByUnameAndPasswdAndType("rale", "hello", 1);
+//        System.out.println(user.getMedicalHistory());
+//    }
 
 }
